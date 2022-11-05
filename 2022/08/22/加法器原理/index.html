@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     <title>加法器原理 | sheng's blog</title>
-    <meta name="description" content="加法器原理一. 简介 加法器，故名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为在计算机中减法，乘法，除法都可以转化为加法。 加法器分为半加器和全加器，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。  二. 实现原理1.半加器的实现 在计算机中，一切数据都是以二进制形式存储的，那么我们先考虑一下一位二进">
+    <meta name="description" content="加法器原理一. 简介 加法器，顾名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为在计算机中减法，乘法，除法都可以转化为加法。 加法器分为半加器和全加器，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。  二. 实现原理1.半加器的实现 在计算机中，一切数据都是以二进制形式存储的，那么我们先考虑一下一位二进">
 <meta property="og:type" content="article">
 <meta property="og:title" content="加法器原理">
 <meta property="og:url" content="https://shuaibisheng666.github.io/2022/08/22/%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="sheng&#39;s blog">
-<meta property="og:description" content="加法器原理一. 简介 加法器，故名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为在计算机中减法，乘法，除法都可以转化为加法。 加法器分为半加器和全加器，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。  二. 实现原理1.半加器的实现 在计算机中，一切数据都是以二进制形式存储的，那么我们先考虑一下一位二进">
+<meta property="og:description" content="加法器原理一. 简介 加法器，顾名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为在计算机中减法，乘法，除法都可以转化为加法。 加法器分为半加器和全加器，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。  二. 实现原理1.半加器的实现 在计算机中，一切数据都是以二进制形式存储的，那么我们先考虑一下一位二进">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1b66064f4a2243fda802928fc073aed9.png">
 <meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1661171386698.jpg">
@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1661173442495.jpg">
 <meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1661175155643.jpg">
 <meta property="article:published_time" content="2022-08-22T13:42:37.000Z">
-<meta property="article:modified_time" content="2022-08-22T13:43:48.863Z">
+<meta property="article:modified_time" content="2022-08-24T15:36:53.047Z">
 <meta property="article:author" content="Ma JiaSheng">
 <meta property="article:tag" content="数字逻辑">
 <meta property="article:tag" content="微机原理">
@@ -241,7 +241,7 @@
         </header>
         <div class="marked-body article-body">
             <h1 id="加法器原理"><a href="#加法器原理" class="headerlink" title="加法器原理"></a>加法器原理</h1><h2 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h2><ol>
-<li>加法器，故名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为<strong>在计算机中减法，乘法，除法都可以转化为加法</strong>。</li>
+<li>加法器，顾名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为<strong>在计算机中减法，乘法，除法都可以转化为加法</strong>。</li>
 <li>加法器分为<strong>半加器</strong>和<strong>全加器</strong>，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。</li>
 </ol>
 <h2 id="二-实现原理"><a href="#二-实现原理" class="headerlink" title="二. 实现原理"></a>二. 实现原理</h2><h3 id="1-半加器的实现"><a href="#1-半加器的实现" class="headerlink" title="1.半加器的实现"></a>1.半加器的实现</h3><ul>
@@ -282,7 +282,7 @@
 <td>0</td>
 </tr>
 </tbody></table>
-<p>  可以看到：<br>  只有A和B同时为1时，C才为1，这跟<strong>与</strong>运算是相同的，即：<br>  C &#x3D; A + B<br>  当A和B一个为1一个为0式，S为1，也就是说A和B不一样时，S为1，这跟<strong>异或运算</strong>是一样的，即：<br>  S &#x3D; A ⊕ B<br>  用以下逻辑符号表示为：<br>  <img src="/../images/8.22/1b66064f4a2243fda802928fc073aed9.png">  </p>
+<p>  可以看到：<br>  只有A和B同时为1时，C才为1，这跟<strong>与</strong>运算是相同的，即：<br>  C &#x3D; A + B<br>  当A和B一个为1一个为0时，S为1，也就是说A和B不一样时，S为1，这跟<strong>异或运算</strong>是一样的，即：<br>  S &#x3D; A ⊕ B<br>  用以下逻辑符号表示为：<br>  <img src="/../images/8.22/1b66064f4a2243fda802928fc073aed9.png">  </p>
 </li>
 <li><p>实际上我们并不关心内部装置是怎么样的，我们只要知道输入什么，会得到怎样的输出即可，于是我们对加法器进行抽象，变成以下简单的样子：<br>  <img src="/../images/8.22/1661171386698.jpg"><br>  这样子，我们就得到了一个只能计算一位二进制数的加法器</p>
 </li>
