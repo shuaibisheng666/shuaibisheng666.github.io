@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html  lang="zh-CN" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>stm32cube+platformio环境开发 | sheng's blog</title>
+    <meta name="description" content="stm32cube+platformio环境开发一. 所需软件 VScode 下载过程略 vscode官网 建议国内下载 stm32cubemx 下载过程略 st官网 建议国内下载 platformio 下载好vscode后，直接在左边插件搜索，选择下载量最多的即可，由于是从github下载故下载速度很慢(dddd) 下载好后点击左侧图标即可进入界面    二. stm32cubemx创建工程 打">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stm32cube+platformio环境开发">
+<meta property="og:url" content="https://shuaibisheng666.github.io/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="sheng&#39;s blog">
+<meta property="og:description" content="stm32cube+platformio环境开发一. 所需软件 VScode 下载过程略 vscode官网 建议国内下载 stm32cubemx 下载过程略 st官网 建议国内下载 platformio 下载好vscode后，直接在左边插件搜索，选择下载量最多的即可，由于是从github下载故下载速度很慢(dddd) 下载好后点击左侧图标即可进入界面    二. stm32cubemx创建工程 打">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659965131203.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659965550539.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659965903414.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659965742730.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659965975312.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659966099120.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659966229888.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659966474429.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659966892806.jpg">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.8/1659967055693.jpg">
+<meta property="article:published_time" content="2022-08-08T13:08:51.000Z">
+<meta property="article:modified_time" content="2023-03-31T15:55:02.292Z">
+<meta property="article:author" content="Ma JiaSheng">
+<meta property="article:tag" content="stm32">
+<meta property="article:tag" content="hal库">
+<meta property="article:tag" content="platformio">
+<meta property="article:tag" content="vscode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shuaibisheng666.github.io/images/8.8/1659965131203.jpg">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/shuaibisheng666" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="https://www.gravatar.com/avatar/c85acca1e2d976783b85f9e436e93f5c?s=128" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">Jiasheng Ma</h2>
+            <h3 id="title" class="hidden lg:block">Student &amp; Coder</h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Guangzhou, China
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" placeholder="搜索" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<div id="content-json" data-placeholder="搜索" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜索" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">首页</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">归档</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">分类</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">标签</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">项目</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">友链</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">关于</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a href="/atom.xml">
+                <i class="iconfont social-icon icon-rss"></i>
+                <span class="menu-title hidden lg:inline">menu.rss</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            stm32cube+platformio环境开发
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/" class="article-date">
+	  <time datetime="2022-08-08T13:08:51.000Z" itemprop="datePublished">8月 8</time>
+	</a>
+</span>
+
+                
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a> , <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/stm32/">stm32</a>
+  </span>
+
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/hal%E5%BA%93/" rel="tag">hal库</a>, <a class="article-tag-none-link" href="/tags/platformio/" rel="tag">platformio</a>, <a class="article-tag-none-link" href="/tags/stm32/" rel="tag">stm32</a>, <a class="article-tag-none-link" href="/tags/vscode/" rel="tag">vscode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/#comments" class="article-comment-link">
+                        评论
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 350(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 1(分)</span>
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h1 id="stm32cube-platformio环境开发"><a href="#stm32cube-platformio环境开发" class="headerlink" title="stm32cube+platformio环境开发"></a>stm32cube+platformio环境开发</h1><h2 id="一-所需软件"><a href="#一-所需软件" class="headerlink" title="一. 所需软件"></a>一. 所需软件</h2><ol>
+<li>VScode<br> 下载过程略<br> <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vscode官网</a><br> 建议国内下载</li>
+<li>stm32cubemx<br> 下载过程略<br> <a target="_blank" rel="noopener" href="https://www.st.com/">st官网</a><br> 建议国内下载</li>
+<li>platformio<br> 下载好vscode后，直接在左边插件搜索，选择下载量最多的即可，由于是从github下载故下载速度很慢(dddd)<br> 下载好后点击左侧图标即可进入界面<br> <img src="/../images/8.8/1659965131203.jpg"></li>
+</ol>
+<hr>
+<h2 id="二-stm32cubemx创建工程"><a href="#二-stm32cubemx创建工程" class="headerlink" title="二. stm32cubemx创建工程"></a>二. stm32cubemx创建工程</h2><ol>
+<li>打开stm32cubemx，点击file-&gt;new project,期间可能会更新一些芯片包，如不需要可直接点击cancel,然后选择自己的芯片</li>
+<li>进行一些基本的配置并创建项目  <ul>
+<li>打开系统总线<br> <img src="/../images/8.8/1659965550539.jpg"></li>
+<li>启用外部晶振<br> <img src="/../images/8.8/1659965903414.jpg"></li>
+<li>进行自己需要的一些配置，如我此处初始化PA1为output<br> <img src="/../images/8.8/1659965742730.jpg"></li>
+<li>配置时钟树，直接输入72即可<br> <img src="/../images/8.8/1659965975312.jpg"></li>
+<li>配置项目基本信息<br> <img src="/../images/8.8/1659966099120.jpg"><br> <img src="/../images/8.8/1659966229888.jpg"></li>
+<li>创建项目</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="三-platformio创建工程"><a href="#三-platformio创建工程" class="headerlink" title="三. platformio创建工程"></a>三. platformio创建工程</h2><ol start="3">
+<li>打开paltformio创建项目工程  <ul>
+<li>点击new project</li>
+<li>选择对应的芯片</li>
+<li>framworks选择cubemax</li>
+<li><strong>注意：项目名称和路径都要和cubemx创建的对应</strong><br> <img src="/../images/8.8/1659966474429.jpg"></li>
+<li>开始创建<br> 由于是第一次创建项目，platformio需要从github上下载对应的资源，因此速度非常慢，忍受不了的可以想办法加速（dddd）</li>
+</ul>
+</li>
+<li>创建成功后，修改platformio.ini配置文件,可以根据自己具体情况进行修改<br> <img src="/../images/8.8/1659966892806.jpg"></li>
+<li>编译并下载<br> <img src="/../images/8.8/1659967055693.jpg"><br> 其中勾号是编译，箭头是下载</li>
+</ol>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文链接 : </strong><a class="permalink" href="https://shuaibisheng666.github.io/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/">https://shuaibisheng666.github.io/2022/08/08/stm32cube+platformio环境开发/</a></p>
+    <p><strong>This article is available under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a> License</strong></p>
+</blockquote>
+
+
+    </article>
+    
+    <section id="comments">
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目录</h3>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#stm32cube-platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91"><span class="toc-number">1.</span> <span class="toc-text">stm32cube+platformio环境开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E6%89%80%E9%9C%80%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">一. 所需软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-stm32cubemx%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">二. stm32cubemx创建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-platformio%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">三. platformio创建工程</span></a></li></ol></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+<script src="/js/local-search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+
+    </body>
+</html>

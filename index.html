@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html  lang="zh-CN" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>sheng's blog</title>
+    <meta name="description" content="博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="sheng&#39;s blog">
+<meta property="og:url" content="https://shuaibisheng666.github.io/index.html">
+<meta property="og:site_name" content="sheng&#39;s blog">
+<meta property="og:description" content="博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Ma JiaSheng">
+<meta property="article:tag" content="blog">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/shuaibisheng666" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="https://www.gravatar.com/avatar/c85acca1e2d976783b85f9e436e93f5c?s=128" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">Jiasheng Ma</h2>
+            <h3 id="title" class="hidden lg:block">Student &amp; Coder</h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Guangzhou, China
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" placeholder="搜索" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<div id="content-json" data-placeholder="搜索" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜索" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">首页</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">归档</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">分类</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">标签</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">项目</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">友链</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">关于</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a href="/atom.xml">
+                <i class="iconfont social-icon icon-rss"></i>
+                <span class="menu-title hidden lg:inline">menu.rss</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    <div class="content article-list">
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/08/06/index/">Sheng&#39;s blog</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/08/06/index/" class="article-date">
+	  <time datetime="2022-08-06T15:45:00.000Z" itemprop="datePublished">8月 6</time>
+	</a>
+</span>
+
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/08/06/index/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 12(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 1(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/08/07/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">个人博客搭建教程</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/08/07/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" class="article-date">
+	  <time datetime="2022-08-07T09:21:14.000Z" itemprop="datePublished">8月 7</time>
+	</a>
+</span>
+
+        
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/blog/" rel="tag">blog</a>, <a class="article-tag-none-link" href="/tags/hexo/" rel="tag">hexo</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/08/07/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 878(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 3(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/">stm32cube+platformio环境开发</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/" class="article-date">
+	  <time datetime="2022-08-08T13:08:51.000Z" itemprop="datePublished">8月 8</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a> , <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/stm32/">stm32</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/hal%E5%BA%93/" rel="tag">hal库</a>, <a class="article-tag-none-link" href="/tags/platformio/" rel="tag">platformio</a>, <a class="article-tag-none-link" href="/tags/stm32/" rel="tag">stm32</a>, <a class="article-tag-none-link" href="/tags/vscode/" rel="tag">vscode</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 350(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 1(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/08/10/8266nodemcu-tft%E6%98%BE%E7%A4%BA%E5%B1%8F%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87/">8266nodemcu+tft显示屏显示图片</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/08/10/8266nodemcu-tft%E6%98%BE%E7%A4%BA%E5%B1%8F%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87/" class="article-date">
+	  <time datetime="2022-08-10T12:06:13.000Z" itemprop="datePublished">8月 10</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a> , <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/esp8266/">esp8266</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/esp8266/" rel="tag">esp8266</a>, <a class="article-tag-none-link" href="/tags/tft%E6%98%BE%E7%A4%BA%E5%B1%8F/" rel="tag">tft显示屏</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/08/10/8266nodemcu-tft%E6%98%BE%E7%A4%BA%E5%B1%8F%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 810(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 3(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/08/22/%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86/">加法器原理</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/08/22/%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86/" class="article-date">
+	  <time datetime="2022-08-22T13:42:37.000Z" itemprop="datePublished">8月 22</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/">数字逻辑</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/CPU/" rel="tag">CPU</a>, <a class="article-tag-none-link" href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8/" rel="tag">加法器</a>, <a class="article-tag-none-link" href="/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/" rel="tag">微机原理</a>, <a class="article-tag-none-link" href="/tags/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/" rel="tag">数字逻辑</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/08/22/%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 1.1k(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 3(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/11/05/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/">从零开发操作系统（一）</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/11/05/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+	  <time datetime="2022-11-05T15:38:54.000Z" itemprop="datePublished">11月 5</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>, <a class="article-tag-none-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/11/05/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 586(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 2(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/11/05/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/">从零开发操作系统（二）</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/11/05/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
+	  <time datetime="2022-11-05T15:39:02.000Z" itemprop="datePublished">11月 5</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>, <a class="article-tag-none-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/11/05/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 512(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 2(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2022/11/07/esp-%E7%A7%BB%E6%A4%8Dlvgl/">esp移植LVGL</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/11/07/esp-%E7%A7%BB%E6%A4%8Dlvgl/" class="article-date">
+	  <time datetime="2022-11-07T13:36:32.000Z" itemprop="datePublished">11月 7</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a> , <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/esp8266/">esp8266</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/LVGL/" rel="tag">LVGL</a>, <a class="article-tag-none-link" href="/tags/esp8266/" rel="tag">esp8266</a>, <a class="article-tag-none-link" href="/tags/tft%E6%98%BE%E7%A4%BA%E5%B1%8F/" rel="tag">tft显示屏</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/11/07/esp-%E7%A7%BB%E6%A4%8Dlvgl/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 1.1k(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 5(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2023/03/31/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">深度优先搜索</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2023/03/31/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" class="article-date">
+	  <time datetime="2023-03-31T11:43:03.000Z" itemprop="datePublished">3月 31</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a> , <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/">搜索算法</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" rel="tag">搜索算法</a>, <a class="article-tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/03/31/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 840(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 3(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2023/03/31/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">广度优先搜索</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2023/03/31/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" class="article-date">
+	  <time datetime="2023-03-31T13:00:00.000Z" itemprop="datePublished">3月 31</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a> , <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/">搜索算法</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" rel="tag">搜索算法</a>, <a class="article-tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/03/31/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 936(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 3(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2023/04/01/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2023/04/01/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="article-date">
+	  <time datetime="2023-04-01T07:28:45.000Z" itemprop="datePublished">4月 1</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a> , <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%9C%80%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">最优化算法</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" rel="tag">优化算法</a>, <a class="article-tag-none-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a>, <a class="article-tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/04/01/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 636(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 2(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+        <article class="article border-b border-solid border-gray-200">
+    <div class="article-header mb-4 mt-5">
+        
+    
+        <h1 itemprop="name">
+            <a class="article-title text-lg" href="/2023/08/31/%E8%80%83%E7%A0%94%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E6%B1%82%E7%9F%A9%E9%98%B5A%E7%9A%84n%E6%AC%A1%E6%96%B9/">考研线性代数:求矩阵A的n次方</a>
+        </h1>
+    
+
+
+
+    </div>
+    
+    <p class="article-meta mb-3 text-xs">
+        <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2023/08/31/%E8%80%83%E7%A0%94%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E6%B1%82%E7%9F%A9%E9%98%B5A%E7%9A%84n%E6%AC%A1%E6%96%B9/" class="article-date">
+	  <time datetime="2023-08-31T06:00:00.000Z" itemprop="datePublished">8月 31</time>
+	</a>
+</span>
+
+        
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E8%80%83%E7%A0%94/">考研</a> , <a class="article-category-link" href="/categories/%E8%80%83%E7%A0%94/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">线性代数</a>
+  </span>
+
+
+        
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a>, <a class="article-tag-none-link" href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" rel="tag">线性代数</a>
+  </span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/08/31/%E8%80%83%E7%A0%94%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E6%B1%82%E7%9F%A9%E9%98%B5A%E7%9A%84n%E6%AC%A1%E6%96%B9/#comments" class="article-comment-link">评论</a></span>
+        
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 0(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 1(分)</span>
+    
+
+
+    </p>
+
+</article>
+
+    
+</div>
+
+    
+<nav class="pagination bottom-0 px-5 mb-3 absolute w-full inset-x-0" data-stick-bottom>
+    <div class="flex justify-between leading-tight">
+        <span class="pager">
+            
+                <button class="prev disabled">
+                    <a href="#">
+                        <i class="iconfont icon-angle-left"></i>
+                        上一页
+                    </a>
+                </button>
+            
+            
+                <button class="next">
+                    <a href="/page/2/">
+                        下一页
+                        <i class="iconfont icon-angle-right"></i>
+                    </a>
+                </button>
+            
+        </span>
+        <div class="total-article bar-right">Page 1 of 2</div>
+    </div>
+</nav>
+
+
+</main>
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="widgets">
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget-body">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/development/">development</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/esp8266/">esp8266</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/stm32/">stm32</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/">数字逻辑</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/">搜索算法</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%9C%80%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">最优化算法</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%80%83%E7%A0%94/">考研</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%80%83%E7%A0%94/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">线性代数</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%80%83%E7%A0%94/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/">高等数学</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%80%83%E7%A0%94/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0%E4%B8%8E%E5%BE%AE%E5%88%86/">导数与微分</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%80%83%E7%A0%94/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/">积分</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%80%83%E7%A0%94/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86/">反常积分</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">
+            标签
+        </h3>
+        <div class="widget-body">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CPU/" rel="tag">CPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LVGL/" rel="tag">LVGL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/" rel="tag">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/esp8266/" rel="tag">esp8266</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitee/" rel="tag">gitee</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hal%E5%BA%93/" rel="tag">hal库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/platformio/" rel="tag">platformio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm32/" rel="tag">stm32</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tft%E6%98%BE%E7%A4%BA%E5%B1%8F/" rel="tag">tft显示屏</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8D%E5%8F%AF%E5%AF%BC%E7%82%B9/" rel="tag">不可导点</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" rel="tag">优化算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8/" rel="tag">加法器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86/" rel="tag">反常积分</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/" rel="tag">微机原理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" rel="tag">搜索算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/" rel="tag">数字逻辑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9C%81%E6%95%9B%E6%B3%95/" rel="tag">省敛法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" rel="tag">线性代数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" rel="tag">高等数学</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+    <div class="widget">
+        
+        <h3 class="widget-title">标签云</h3>
+        
+        <div class="widget-body tagcloud">
+            <a href="/tags/CPU/" style="font-size: 13px;">CPU</a> <a href="/tags/LVGL/" style="font-size: 13px;">LVGL</a> <a href="/tags/blog/" style="font-size: 13px;">blog</a> <a href="/tags/esp8266/" style="font-size: 13.5px;">esp8266</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/gitee/" style="font-size: 13px;">gitee</a> <a href="/tags/github/" style="font-size: 13px;">github</a> <a href="/tags/hal%E5%BA%93/" style="font-size: 13px;">hal库</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/platformio/" style="font-size: 13px;">platformio</a> <a href="/tags/stm32/" style="font-size: 13px;">stm32</a> <a href="/tags/tft%E6%98%BE%E7%A4%BA%E5%B1%8F/" style="font-size: 13.5px;">tft显示屏</a> <a href="/tags/vscode/" style="font-size: 13px;">vscode</a> <a href="/tags/%E4%B8%8D%E5%8F%AF%E5%AF%BC%E7%82%B9/" style="font-size: 13px;">不可导点</a> <a href="/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 13px;">优化算法</a> <a href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8/" style="font-size: 13px;">加法器</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 13px;">动态规划</a> <a href="/tags/%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86/" style="font-size: 13px;">反常积分</a> <a href="/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/" style="font-size: 13px;">微机原理</a> <a href="/tags/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" style="font-size: 13.5px;">搜索算法</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 13.5px;">操作系统</a> <a href="/tags/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/" style="font-size: 13px;">数字逻辑</a> <a href="/tags/%E6%B1%87%E7%BC%96/" style="font-size: 13.5px;">汇编</a> <a href="/tags/%E7%9C%81%E6%95%9B%E6%B3%95/" style="font-size: 13px;">省敛法</a> <a href="/tags/%E7%9F%A9%E9%98%B5/" style="font-size: 13px;">矩阵</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" style="font-size: 13px;">线性代数</a> <a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" style="font-size: 13.5px;">高等数学</a>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+    <div class="widget">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget-body">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">八月 2022</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            <hr>
+        
+            
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled">
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/development/">development</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2024/01/20/git%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="title">git使用教程</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2024-01-20T06:21:59.000Z" itemprop="datePublished">2024-01-20</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E8%80%83%E7%A0%94/">考研</a><i class="iconfont icon-angle-right"></i><a class="category-link" href="/categories/%E8%80%83%E7%A0%94/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/">高等数学</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2023/09/01/%E8%80%83%E7%A0%94%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6-%E5%BF%AB%E9%80%9F%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%AF%BC%E7%82%B9%E4%B8%AA%E6%95%B0/" class="title">考研高等数学:快速计算函数的不可导点个数</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2023-09-01T05:00:00.000Z" itemprop="datePublished">2023-09-01</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E8%80%83%E7%A0%94/">考研</a><i class="iconfont icon-angle-right"></i><a class="category-link" href="/categories/%E8%80%83%E7%A0%94/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/">高等数学</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2023/09/01/%E8%80%83%E7%A0%94%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6-%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86%E7%9A%84%E7%9C%81%E6%95%9B%E6%B3%95/" class="title">考研高等数学:反常积分的省敛法</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2023-08-31T17:00:00.000Z" itemprop="datePublished">2023-09-01</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E8%80%83%E7%A0%94/">考研</a><i class="iconfont icon-angle-right"></i><a class="category-link" href="/categories/%E8%80%83%E7%A0%94/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">线性代数</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2023/08/31/%E8%80%83%E7%A0%94%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E6%B1%82%E7%9F%A9%E9%98%B5A%E7%9A%84n%E6%AC%A1%E6%96%B9/" class="title">考研线性代数:求矩阵A的n次方</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2023-08-31T06:00:00.000Z" itemprop="datePublished">2023-08-31</time>
+                        </p>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="recent-post">
+                        <p class="item-category">
+                            <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><i class="iconfont icon-angle-right"></i><a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%9C%80%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">最优化算法</a>
+                        </p>
+                        <p class="item-title">
+                            <a href="/2023/04/01/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="title">动态规划</a>
+                        </p>
+                        <p class="item-date">
+                            <time datetime="2023-04-01T07:28:45.000Z" itemprop="datePublished">2023-04-01</time>
+                        </p>
+                    </div>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+            <hr>
+        
+    </div>
+</aside>
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+<script src="/js/local-search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+
+    </body>
+</html>

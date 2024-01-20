@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html  lang="zh-CN" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>esp移植LVGL | sheng's blog</title>
+    <meta name="description" content="一. LVGL简介 LVGL (Light and Versatile Graphics Library) is a free and open-source graphics library providing everything you need to create an embedded GUI with easy-to-use graphical elements, beautiful">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp移植LVGL">
+<meta property="og:url" content="https://shuaibisheng666.github.io/2022/11/07/esp-%E7%A7%BB%E6%A4%8Dlvgl/index.html">
+<meta property="og:site_name" content="sheng&#39;s blog">
+<meta property="og:description" content="一. LVGL简介 LVGL (Light and Versatile Graphics Library) is a free and open-source graphics library providing everything you need to create an embedded GUI with easy-to-use graphical elements, beautiful">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/11.7/1667825078577.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/11.7/7d1f3b707783620342cee83d6ea0510.jpg">
+<meta property="article:published_time" content="2022-11-07T13:36:32.000Z">
+<meta property="article:modified_time" content="2023-03-31T11:54:22.410Z">
+<meta property="article:author" content="Ma JiaSheng">
+<meta property="article:tag" content="esp8266">
+<meta property="article:tag" content="tft显示屏">
+<meta property="article:tag" content="LVGL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shuaibisheng666.github.io/images/11.7/1667825078577.png">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/shuaibisheng666" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="https://www.gravatar.com/avatar/c85acca1e2d976783b85f9e436e93f5c?s=128" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">Jiasheng Ma</h2>
+            <h3 id="title" class="hidden lg:block">Student &amp; Coder</h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Guangzhou, China
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" placeholder="搜索" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<div id="content-json" data-placeholder="搜索" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜索" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">首页</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">归档</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">分类</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">标签</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">项目</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">友链</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">关于</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a href="/atom.xml">
+                <i class="iconfont social-icon icon-rss"></i>
+                <span class="menu-title hidden lg:inline">menu.rss</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            esp移植LVGL
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2022/11/07/esp-%E7%A7%BB%E6%A4%8Dlvgl/" class="article-date">
+	  <time datetime="2022-11-07T13:36:32.000Z" itemprop="datePublished">11月 7</time>
+	</a>
+</span>
+
+                
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a> , <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/esp8266/">esp8266</a>
+  </span>
+
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/LVGL/" rel="tag">LVGL</a>, <a class="article-tag-none-link" href="/tags/esp8266/" rel="tag">esp8266</a>, <a class="article-tag-none-link" href="/tags/tft%E6%98%BE%E7%A4%BA%E5%B1%8F/" rel="tag">tft显示屏</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2022/11/07/esp-%E7%A7%BB%E6%A4%8Dlvgl/#comments" class="article-comment-link">
+                        评论
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 1.1k(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 5(分)</span>
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h2 id="一-LVGL简介"><a href="#一-LVGL简介" class="headerlink" title="一. LVGL简介"></a>一. LVGL简介</h2><ul>
+<li>LVGL (Light and Versatile Graphics Library) is a free and open-source graphics library providing everything you need to create an embedded GUI with easy-to-use graphical elements, beautiful visual effects and a low memory footprint.</li>
+<li>以上是官方文档对LVGL（轻量的多功能的图形库）的介绍，简单说就是一个轻量，开源，免费的图形库，能让你很方便地做出漂亮的GUI。</li>
+<li>LVGL支持很多MCU和屏幕驱动，具体介绍建议查看LVGL官方文档，这里就不赘述了。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.lvgl.io/">LVGL官方文档</a></li>
+</ul>
+<h2 id="二-环境"><a href="#二-环境" class="headerlink" title="二. 环境"></a>二. 环境</h2><ol>
+<li>硬件：<ul>
+<li>tft显示屏</li>
+<li>esp开发板(由于我手头只有nodemcu，故此次以nodemcu为例)</li>
+</ul>
+</li>
+<li>软件<ul>
+<li>vscode + platformio(也可以是arduino)</li>
+</ul>
+</li>
+</ol>
+<h2 id="三-TFT屏幕显示"><a href="#三-TFT屏幕显示" class="headerlink" title="三. TFT屏幕显示"></a>三. TFT屏幕显示</h2><ul>
+<li>屏幕显示部分前面已发过教程，不懂的去观看前面的博客，这里就不赘述了。</li>
+</ul>
+<h2 id="四-LVGL移植"><a href="#四-LVGL移植" class="headerlink" title="四. LVGL移植"></a>四. LVGL移植</h2><ol>
+<li>在platformio中新建工程，根据自己需要选择开发板和开发框架，比如我选择的是nodemcu1.0和arduino</li>
+<li>在libraries中搜索lvgl并添加到工程,如果以后经常用到的话可以待添加成功后将lvgl文件夹整个复制到platformio的全局库路径中<br><img src="/../images/11.7/1667825078577.png"></li>
+<li>由platformio添加到工程的库的路径为.pio&#x2F;libdeps&#x2F;(board_name)&#x2F;，将lvgl中的lv_conf_template.h复制并粘贴到lvgl的同级目录中，并改名为lv_conf.h</li>
+<li>打开lv_conf.h根据自己的需要进行修改</li>
+</ol>
+<ul>
+<li>一般来说修改颜色深度和内存空间即可，如以下修改颜色深度为16  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*====================</span></span><br><span class="line"><span class="comment">COLOR SETTINGS</span></span><br><span class="line"><span class="comment">*====================*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*Color depth: 1 (1 byte per pixel), 8 (RGB332), 16 (RGB565), 32 (ARGB8888)*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LV_COLOR_DEPTH 16</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="五-lvgl初始化介绍"><a href="#五-lvgl初始化介绍" class="headerlink" title="五. lvgl初始化介绍"></a>五. lvgl初始化介绍</h2><ul>
+<li>在写代码之前首先要了解lvgl的初始化过程（来源于官网教程）</li>
+</ul>
+<ol>
+<li>先初始化一个内存缓冲区(lv_disp_draw_buf_t) <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*A static or global variable to store the buffers*/</span></span><br><span class="line"><span class="type">static</span> <span class="type">lv_disp_draw_buf_t</span> disp_buf;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Static or global buffer(s). The second buffer is optional*/</span></span><br><span class="line"><span class="type">static</span> <span class="type">lv_color_t</span> buf_1[MY_DISP_HOR_RES * <span class="number">10</span>];</span><br><span class="line"><span class="type">static</span> <span class="type">lv_color_t</span> buf_2[MY_DISP_HOR_RES * <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Initialize `disp_buf` with the buffer(s). With only one buffer use NULL instead buf_2 */</span></span><br><span class="line">lv_disp_draw_buf_init(&amp;disp_buf, buf_1, buf_2, MY_DISP_HOR_RES*<span class="number">10</span>);</span><br></pre></td></tr></table></figure></li>
+<li>初始化一个显示驱动 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">lv_disp_drv_t</span> disp_drv;          <span class="comment">/*A variable to hold the drivers. Must be static or global.*/</span></span><br><span class="line">lv_disp_drv_init(&amp;disp_drv);            <span class="comment">/*Basic initialization*/</span></span><br><span class="line">disp_drv.draw_buf = &amp;disp_buf;          <span class="comment">/*Set an initialized buffer*/</span></span><br><span class="line">disp_drv.flush_cb = my_flush_cb;        <span class="comment">/*Set a flush callback to draw to the display*/</span></span><br><span class="line">disp_drv.hor_res = <span class="number">320</span>;                 <span class="comment">/*Set the horizontal resolution in pixels*/</span></span><br><span class="line">disp_drv.ver_res = <span class="number">240</span>;                 <span class="comment">/*Set the vertical resolution in pixels*/</span></span><br><span class="line"></span><br><span class="line"><span class="type">lv_disp_t</span> * disp;</span><br><span class="line">disp = lv_disp_drv_register(&amp;disp_drv); <span class="comment">/*Register the driver and save the created display objects*/</span></span><br></pre></td></tr></table></figure></li>
+<li>注意上面有一个disp_drv.flush_cb &#x3D; my_flush_cb,这里的my_flush_cb是一个回调函数，是为了实现lvgl调用绘制屏幕的接口，是需要我们自己实现的，比如我是这么实现的： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Display flushing  回调函数，使lvgl可以使用tft接口*/</span>      </span><br><span class="line"><span class="type">void</span> <span class="title function_">my_disp_flush</span><span class="params">( <span class="type">lv_disp_drv_t</span> *disp, <span class="type">const</span> <span class="type">lv_area_t</span> *area, <span class="type">lv_color_t</span> *color_p )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> w = ( area-&gt;x2 - area-&gt;x1 + <span class="number">1</span> );</span><br><span class="line">    <span class="type">uint32_t</span> h = ( area-&gt;y2 - area-&gt;y1 + <span class="number">1</span> );</span><br><span class="line"></span><br><span class="line">    tft.startWrite();</span><br><span class="line">    tft.setAddrWindow( area-&gt;x1, area-&gt;y1, w, h );</span><br><span class="line">    tft.pushColors( ( <span class="type">uint16_t</span> * )&amp;color_p-&gt;full, w * h, <span class="literal">true</span> );</span><br><span class="line">    tft.endWrite();</span><br><span class="line">    <span class="comment">//上面的代码就是使用tft的接口在指定矩形区域绘制图形（将指定数据输入指定显存）</span></span><br><span class="line"></span><br><span class="line">    lv_disp_flush_ready( disp );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="六-写代码，编译下载"><a href="#六-写代码，编译下载" class="headerlink" title="六. 写代码，编译下载"></a>六. 写代码，编译下载</h2><ol>
+<li>最终测试代码如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;lvgl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;TFT_eSPI.h&gt;</span></span></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">uint16_t</span> screenWidth  = <span class="number">128</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">uint16_t</span> screenHeight = <span class="number">128</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">lv_disp_draw_buf_t</span> draw_buf;</span><br><span class="line"><span class="type">static</span> <span class="type">lv_color_t</span> buf[ screenWidth * <span class="number">10</span> ];</span><br><span class="line"></span><br><span class="line">TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight); <span class="comment">/* TFT instance */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> LV_USE_LOG != 0</span></span><br><span class="line"><span class="comment">/* Serial debugging */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">my_print</span><span class="params">(<span class="type">const</span> <span class="type">char</span> * buf)</span></span><br><span class="line">&#123;</span><br><span class="line">    Serial.<span class="built_in">printf</span>(buf);</span><br><span class="line">    Serial.flush();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Display flushing */</span></span><br><span class="line"><span class="comment">//回调函数，使lvgl可以使用tft接口</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">my_disp_flush</span><span class="params">( <span class="type">lv_disp_drv_t</span> *disp, <span class="type">const</span> <span class="type">lv_area_t</span> *area, <span class="type">lv_color_t</span> *color_p )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint32_t</span> w = ( area-&gt;x2 - area-&gt;x1 + <span class="number">1</span> );</span><br><span class="line">    <span class="type">uint32_t</span> h = ( area-&gt;y2 - area-&gt;y1 + <span class="number">1</span> );</span><br><span class="line"></span><br><span class="line">    tft.startWrite();</span><br><span class="line">    tft.setAddrWindow( area-&gt;x1, area-&gt;y1, w, h );</span><br><span class="line">    tft.pushColors( ( <span class="type">uint16_t</span> * )&amp;color_p-&gt;full, w * h, <span class="literal">true</span> );</span><br><span class="line">    tft.endWrite();</span><br><span class="line">    <span class="comment">//上面的代码就是使用tft的接口在指定矩形区域绘制图形（将指定数据输入指定显存）</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    lv_disp_flush_ready( disp );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">setup</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Serial.begin( <span class="number">115200</span> ); <span class="comment">/* prepare for possible serial debug */</span></span><br><span class="line"></span><br><span class="line">    String LVGL_Arduino = <span class="string">&quot;Hello LVGL! &quot;</span>;</span><br><span class="line">    <span class="comment">// LVGL_Arduino += String(&#x27;V&#x27;) + lv_version_major() + &quot;.&quot; + lv_version_minor() + &quot;.&quot; + lv_version_patch();</span></span><br><span class="line"></span><br><span class="line">    Serial.println( LVGL_Arduino );</span><br><span class="line">    Serial.println( <span class="string">&quot;I am LVGL_Arduino&quot;</span> );</span><br><span class="line"></span><br><span class="line">    lv_init();</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> LV_USE_LOG != 0</span></span><br><span class="line">    lv_log_register_print_cb( my_print ); <span class="comment">/* register print function for debugging */</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    tft.begin();          <span class="comment">/* TFT init */</span></span><br><span class="line">    tft.setRotation( <span class="number">3</span> ); <span class="comment">/* Landscape orientation, flipped */</span></span><br><span class="line"></span><br><span class="line">    lv_disp_draw_buf_init( &amp;draw_buf, buf, <span class="literal">NULL</span>, screenWidth * <span class="number">10</span> );</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*Initialize the display*/</span></span><br><span class="line">    <span class="type">static</span> <span class="type">lv_disp_drv_t</span> disp_drv;      <span class="comment">//实例化一个显示驱动</span></span><br><span class="line">    lv_disp_drv_init( &amp;disp_drv );        <span class="comment">//初始化</span></span><br><span class="line">    <span class="comment">/*Change the following line to your display resolution*/</span></span><br><span class="line">    disp_drv.hor_res = screenWidth;    <span class="comment">//水平像素</span></span><br><span class="line">    disp_drv.ver_res = screenHeight;    <span class="comment">//垂直像素</span></span><br><span class="line">    disp_drv.flush_cb = my_disp_flush;   <span class="comment">//回调函数,实现将数据刷入屏幕</span></span><br><span class="line">    disp_drv.draw_buf = &amp;draw_buf;   </span><br><span class="line">    lv_disp_drv_register( &amp;disp_drv );</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> 1</span></span><br><span class="line">    <span class="comment">/* Create simple label */</span></span><br><span class="line">    <span class="type">lv_obj_t</span> *label = lv_label_create( lv_scr_act() );</span><br><span class="line">    lv_label_set_text( label, LVGL_Arduino.c_str() );</span><br><span class="line">    lv_obj_align( label, LV_ALIGN_CENTER, <span class="number">0</span>, <span class="number">0</span> );</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    Serial.println( <span class="string">&quot;Setup done&quot;</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">loop</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    lv_timer_handler(); <span class="comment">/* let the GUI do its work */</span></span><br><span class="line">    delay( <span class="number">5</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>编译并下载</li>
+<li>最终效果如下<br><img src="/../images/11.7/7d1f3b707783620342cee83d6ea0510.jpg"></li>
+</ol>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文链接 : </strong><a class="permalink" href="https://shuaibisheng666.github.io/2022/11/07/esp-%E7%A7%BB%E6%A4%8Dlvgl/">https://shuaibisheng666.github.io/2022/11/07/esp-移植lvgl/</a></p>
+    <p><strong>This article is available under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a> License</strong></p>
+</blockquote>
+
+
+    </article>
+    
+    <section id="comments">
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目录</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-LVGL%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一. LVGL简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">二. 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-TFT%E5%B1%8F%E5%B9%95%E6%98%BE%E7%A4%BA"><span class="toc-number">3.</span> <span class="toc-text">三. TFT屏幕显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-LVGL%E7%A7%BB%E6%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">四. LVGL移植</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-lvgl%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.</span> <span class="toc-text">五. lvgl初始化介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E5%86%99%E4%BB%A3%E7%A0%81%EF%BC%8C%E7%BC%96%E8%AF%91%E4%B8%8B%E8%BD%BD"><span class="toc-number">6.</span> <span class="toc-text">六. 写代码，编译下载</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+<script src="/js/local-search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+
+    </body>
+</html>

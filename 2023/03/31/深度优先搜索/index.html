@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html  lang="zh-CN" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>深度优先搜索 | sheng's blog</title>
+    <meta name="description" content="一. 简介  深度优先搜索是一种图遍历算法。深度优先搜索（DFS）是用于遍历或搜索树或图的一种算法。它沿着树的深度遍历树的节点，并尽可能深入搜索树的分支。当一个节点的所有子节点都被探索过，搜索过程将回溯到该节点的起始点，继续搜索下一个未被探索的节点。 二. 基本逻辑（步骤）深度优先搜索的主要步骤如下  选择一个起始节点，并标记为已访问； 访问当前节点的邻居节点，如果邻居节点没有被访问过，就将其标记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度优先搜索">
+<meta property="og:url" content="https://shuaibisheng666.github.io/2023/03/31/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/index.html">
+<meta property="og:site_name" content="sheng&#39;s blog">
+<meta property="og:description" content="一. 简介  深度优先搜索是一种图遍历算法。深度优先搜索（DFS）是用于遍历或搜索树或图的一种算法。它沿着树的深度遍历树的节点，并尽可能深入搜索树的分支。当一个节点的所有子节点都被探索过，搜索过程将回溯到该节点的起始点，继续搜索下一个未被探索的节点。 二. 基本逻辑（步骤）深度优先搜索的主要步骤如下  选择一个起始节点，并标记为已访问； 访问当前节点的邻居节点，如果邻居节点没有被访问过，就将其标记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/23.3.31/1680260721398.jpg">
+<meta property="article:published_time" content="2023-03-31T11:43:03.000Z">
+<meta property="article:modified_time" content="2023-04-01T07:28:23.814Z">
+<meta property="article:author" content="Ma JiaSheng">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="搜索算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shuaibisheng666.github.io/images/23.3.31/1680260721398.jpg">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/shuaibisheng666" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="https://www.gravatar.com/avatar/c85acca1e2d976783b85f9e436e93f5c?s=128" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">Jiasheng Ma</h2>
+            <h3 id="title" class="hidden lg:block">Student &amp; Coder</h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Guangzhou, China
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" placeholder="搜索" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<div id="content-json" data-placeholder="搜索" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜索" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">首页</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">归档</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">分类</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">标签</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">项目</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">友链</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">关于</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a href="/atom.xml">
+                <i class="iconfont social-icon icon-rss"></i>
+                <span class="menu-title hidden lg:inline">menu.rss</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            深度优先搜索
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2023/03/31/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" class="article-date">
+	  <time datetime="2023-03-31T11:43:03.000Z" itemprop="datePublished">3月 31</time>
+	</a>
+</span>
+
+                
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a> , <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/">搜索算法</a>
+  </span>
+
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" rel="tag">搜索算法</a>, <a class="article-tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2023/03/31/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/#comments" class="article-comment-link">
+                        评论
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 840(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 3(分)</span>
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h2 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h2><p>  深度优先搜索是一种图遍历算法。深度优先搜索（DFS）是用于遍历或搜索树或图的一种算法。它沿着树的深度遍历树的节点，并尽可能深入搜索树的分支。当一个节点的所有子节点都被探索过，搜索过程将回溯到该节点的起始点，继续搜索下一个未被探索的节点。</p>
+<h2 id="二-基本逻辑（步骤）"><a href="#二-基本逻辑（步骤）" class="headerlink" title="二. 基本逻辑（步骤）"></a>二. 基本逻辑（步骤）</h2><p><strong>深度优先搜索的主要步骤如下</strong></p>
+<ol>
+<li>选择一个起始节点，并标记为已访问；</li>
+<li>访问当前节点的邻居节点，如果邻居节点没有被访问过，就将其标记为已访问，并递归遍历邻居节点；</li>
+<li>当当前节点没有未访问的邻居节点时，回溯到上一层节点；</li>
+<li>重复2和3步骤，直到遍历完所有的节点。</li>
+</ol>
+<p>在实现深度优先搜索时，通常使用栈结构来保存待访问节点，使算法能够回溯回到之前的状态。这种实现方式称为迭代式深度优先搜索（Iterative Deepening Depth-First Search，IDDFS），它是深度优先搜索的一个变体。</p>
+<p>需要注意的是，深度优先搜索对于环路很容易陷入死循环，因此需要<strong>在遍历时记录已访问的节点信息</strong>，防止重复访问同一个节点。</p>
+<p>鉴于深度优先搜索的特性，通常用递归实现。</p>
+<h2 id="三-基本模板-伪代码"><a href="#三-基本模板-伪代码" class="headerlink" title="三. 基本模板(伪代码)"></a>三. 基本模板(伪代码)</h2><pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">DFS</span>(<span class="params">node</span>)</span><br><span class="line">    <span class="comment"># 如果当前节点未访问则标记为已访问</span></span><br><span class="line">    <span class="keyword">if</span> node.visited == false then</span><br><span class="line">        mark node <span class="keyword">as</span> visited</span><br><span class="line">        <span class="comment"># 将每个邻居依次设为搜索起点</span></span><br><span class="line">        <span class="keyword">for</span> each neighbor <span class="keyword">in</span> node.neighbors do</span><br><span class="line">            DFS(neighbor)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化每个节点为未访问过状态</span></span><br><span class="line">initialize visited flag <span class="keyword">for</span> <span class="built_in">all</span> nodes to false</span><br><span class="line">DFS(start_node)</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="四-示例"><a href="#四-示例" class="headerlink" title="四. 示例"></a>四. 示例</h2><p>这是Leetcode第695题：</p>
+<pre><code>695. 岛屿的最大面积
+
+给你一个大小为 m x n 的二进制矩阵 grid 。
+
+岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在 水平或者竖直的四个方向上 相邻。你可以假设 grid 的四个边缘都被 0（代表水）包围着。
+
+岛屿的面积是岛上值为 1 的单元格的数目。
+
+计算并返回 grid 中最大的岛屿面积。如果没有岛屿，则返回面积为 0 
+</code></pre>
+<p><img src="/../images/23.3.31/1680260721398.jpg"> </p>
+<p>示例代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####################思路############################</span></span><br><span class="line"><span class="comment">#    对每个孤立的岛屿进行深度优先搜索</span></span><br><span class="line"><span class="comment">#    记录每次深度优先搜索的岛屿的面积</span></span><br><span class="line"><span class="comment">#    维护一个记录最大面积的变量</span></span><br><span class="line"><span class="comment">####################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">####################代码############################</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxAreaOfIsland</span>(<span class="params">self, grid: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment"># 用来存储坐标是否访问过的矩阵</span></span><br><span class="line">        grid_copy = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid[<span class="number">0</span>]))] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid))]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i,j</span>):</span><br><span class="line">            <span class="keyword">nonlocal</span> area</span><br><span class="line">            <span class="comment"># 如果坐标不合法或已访问则直接返回</span></span><br><span class="line">            <span class="keyword">if</span> i&gt;=<span class="built_in">len</span>(grid) <span class="keyword">or</span> i&lt;<span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">if</span> j&gt;=<span class="built_in">len</span>(grid[<span class="number">0</span>]) <span class="keyword">or</span> j&lt;<span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">if</span> grid[i][j] == <span class="number">0</span> <span class="keyword">or</span> grid_copy[i][j]==<span class="number">2</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">#如果符合条件则岛屿面积加一并依次搜索上下左右四个邻居</span></span><br><span class="line">            area += <span class="number">1</span></span><br><span class="line">            grid_copy[i][j]=<span class="number">2</span></span><br><span class="line">            dire = [(<span class="number">1</span>,<span class="number">0</span>),(-<span class="number">1</span>,<span class="number">0</span>),(<span class="number">0</span>,<span class="number">1</span>),(<span class="number">0</span>,-<span class="number">1</span>)]</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> dire:</span><br><span class="line">                dfs(i+k[<span class="number">0</span>],j+k[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(grid[<span class="number">0</span>])):</span><br><span class="line">                <span class="comment">#遍历每个孤立的岛屿</span></span><br><span class="line">                <span class="keyword">if</span> grid[i][j] == <span class="number">1</span> <span class="keyword">and</span> grid_copy != <span class="number">2</span>:</span><br><span class="line">                    area = <span class="number">0</span></span><br><span class="line">                    dfs(i,j)</span><br><span class="line">                    res = <span class="built_in">max</span>(res,area)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文链接 : </strong><a class="permalink" href="https://shuaibisheng666.github.io/2023/03/31/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">https://shuaibisheng666.github.io/2023/03/31/深度优先搜索/</a></p>
+    <p><strong>This article is available under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a> License</strong></p>
+</blockquote>
+
+
+    </article>
+    
+    <section id="comments">
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目录</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一. 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%9F%BA%E6%9C%AC%E9%80%BB%E8%BE%91%EF%BC%88%E6%AD%A5%E9%AA%A4%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二. 基本逻辑（步骤）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%9F%BA%E6%9C%AC%E6%A8%A1%E6%9D%BF-%E4%BC%AA%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">三. 基本模板(伪代码)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E7%A4%BA%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">四. 示例</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+<script src="/js/local-search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+
+    </body>
+</html>
