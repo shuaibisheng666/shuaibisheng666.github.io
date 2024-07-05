@@ -12,9 +12,10 @@
 <meta property="og:description" content="一. 首先确保已经安装好QT1. QT官网：https:&#x2F;&#x2F;www.qt.io&#x2F;zh-cn&#x2F; 2. 根据需求选择版本安装包 3. 注册登录账号 4. 选择好安装路径 6. 选择好需要的开发组件，比如windows桌面就MingGw，android就选Android  二. 下载QT在github发布的MQTT源码1. 源码地址：https:&#x2F;&#x2F;github.com&#x2F;qt&#x2F;qtmqtt，需要确保在其">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-17T07:17:45.000Z">
-<meta property="article:modified_time" content="2024-02-17T07:24:09.165Z">
+<meta property="article:modified_time" content="2024-02-17T09:43:15.100Z">
 <meta property="article:author" content="Ma JiaSheng">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="QT">
+<meta property="article:tag" content="MQTT">
 <meta name="twitter:card" content="summary">
 
     
@@ -201,8 +202,18 @@
 </span>
 
                 
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/development/">development</a>
+  </span>
+
 
                 
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/MQTT/" rel="tag">MQTT</a>, <a class="article-tag-none-link" href="/tags/QT/" rel="tag">QT</a>
+  </span>
+
 
                 <span class="_partial/post-comment"><i class="icon icon-comment"></i>
                     <a href="/2024/02/17/QT%E6%B7%BB%E5%8A%A0mqtt%E6%A8%A1%E5%9D%97/#comments" class="article-comment-link">
@@ -211,10 +222,10 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">字数统计: 535(字)</span>
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 565(字)</span>
     
     
-        <span class="post-readcount" itemprop="timeRequired">阅读时长: 1(分)</span>
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 2(分)</span>
     
 
 
@@ -244,7 +255,8 @@
 6. 将编译源码得到的modules里的.json文件复制到mingw_64\mudules里面
 7. 将编译源码得到的mkspecs里的mudules文件夹整个复制到mingw_64\mkspecs
 </code></pre>
-<h2 id="五-验证导入模块是否成功"><a href="#五-验证导入模块是否成功" class="headerlink" title="五. 验证导入模块是否成功"></a>五. 验证导入模块是否成功</h2><pre><code>按照前面编译源码的方法，打开下载的mqtt源码下的examples/mqtt，选择simpleclient,编译运行，如果成功会显示一个界面。
+<h2 id="五-验证导入模块是否成功"><a href="#五-验证导入模块是否成功" class="headerlink" title="五. 验证导入模块是否成功"></a>五. 验证导入模块是否成功</h2><pre><code>1. 按照前面编译源码的方法，打开下载的mqtt源码下的examples/mqtt，选择simpleclient,编译运行，如果成功会显示一个界面。
+2. 接下来如果你的项目需要用到mqtt，直接在配置文件里加上 QT += mqtt即可
 </code></pre>
 
         </div>

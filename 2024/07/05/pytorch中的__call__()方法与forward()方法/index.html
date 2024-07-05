@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html  lang="zh-CN" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>pytorch中的__call__()方法与forward()方法 | sheng's blog</title>
+    <meta name="description" content="当我们在使用pytorch的时候，观察以下例子： 12345678910111213141516171819202122from torch import nnimport torchclass Net(nn.Module):    def __init__(self):        print(&amp;#x27;init&amp;#x27;)        super().__init__()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pytorch中的__call__()方法与forward()方法">
+<meta property="og:url" content="https://shuaibisheng666.github.io/2024/07/05/pytorch%E4%B8%AD%E7%9A%84__call__()%E6%96%B9%E6%B3%95%E4%B8%8Eforward()%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="sheng&#39;s blog">
+<meta property="og:description" content="当我们在使用pytorch的时候，观察以下例子： 12345678910111213141516171819202122from torch import nnimport torchclass Net(nn.Module):    def __init__(self):        print(&amp;#x27;init&amp;#x27;)        super().__init__()">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-05T09:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-05T08:43:24.419Z">
+<meta property="article:author" content="Ma JiaSheng">
+<meta property="article:tag" content="pytorch">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/shuaibisheng666" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="https://www.gravatar.com/avatar/c85acca1e2d976783b85f9e436e93f5c?s=128" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">Jiasheng Ma</h2>
+            <h3 id="title" class="hidden lg:block">Student &amp; Coder</h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Guangzhou, China
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" placeholder="搜索" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<div id="content-json" data-placeholder="搜索" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜索" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">首页</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">归档</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">分类</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">标签</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">项目</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">友链</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">关于</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a href="/atom.xml">
+                <i class="iconfont social-icon icon-rss"></i>
+                <span class="menu-title hidden lg:inline">menu.rss</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            pytorch中的__call__()方法与forward()方法
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2024/07/05/pytorch%E4%B8%AD%E7%9A%84__call__()%E6%96%B9%E6%B3%95%E4%B8%8Eforward()%E6%96%B9%E6%B3%95/" class="article-date">
+	  <time datetime="2024-07-05T09:00:00.000Z" itemprop="datePublished">7月 5</time>
+	</a>
+</span>
+
+                
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a> , <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/pytorch/">pytorch</a>
+  </span>
+
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/pytorch/" rel="tag">pytorch</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2024/07/05/pytorch%E4%B8%AD%E7%9A%84__call__()%E6%96%B9%E6%B3%95%E4%B8%8Eforward()%E6%96%B9%E6%B3%95/#comments" class="article-comment-link">
+                        评论
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 1.3k(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 5(分)</span>
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <p>当我们在使用pytorch的时候，观察以下例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Net</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;init&#x27;</span>)</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span></span>):</span><br><span class="line">        output = <span class="built_in">input</span> + <span class="number">1</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;forward&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line">net = Net()</span><br><span class="line">x = torch.tensor(<span class="number">1.0</span>)</span><br><span class="line">out = net(x)</span><br><span class="line"><span class="built_in">print</span>(out)</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">init</span><br><span class="line">forward</span><br><span class="line">tensord(<span class="number">2.</span>)</span><br></pre></td></tr></table></figure>
+
+<p>定义一个神经网络Net后实现forward方法，后续实例化为net网络后直接传入x即可自动调用forward方法，可明明我们并未调用forward方法，具体如何实现的呢？</p>
+<p>原因在于Net继承于nn.Module，而nn.Module内部实现了_<em>call</em>_()方法，</p>
+<p>在Python中，_<em>call</em><em>() 是一个特殊方法（也称为魔术方法或魔法方法），用于使对象实例可以像函数一样被调用。当一个类定义了 _<em>call</em></em>() 方法时，它的实例可以像调用函数一样被调用，而不仅仅是通过类中的其他方法来调用。如下例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;init&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self,a</span>):</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&#x27;call&#x27;</span>)</span><br><span class="line">      <span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">test = Test()</span><br><span class="line"><span class="built_in">print</span>(test(<span class="string">&#x27;test&#x27;</span>))</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">init</span><br><span class="line">call</span><br><span class="line">test</span><br></pre></td></tr></table></figure>
+
+<p>而在pytorch中，_<em>call</em>_()方法会自动调用forward()方法。</p>
+<p>具体说：当你调用net(x)后，net会自动调用_<em>call</em><em>()方法, 相当于net._<em>call</em></em>(x),而_<em>call</em>_()又会自动调用forward()方法。</p>
+<p>相当于：net(x) –&gt; net._<em>call</em>_(x) –&gt;net.forward(x)</p>
+<p><strong>pytorch源码分析：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from typing import Callable</span><br><span class="line"></span><br><span class="line">class Module():</span><br><span class="line">  __call__ : Callable[..., Any] = _wrapped_call_impl</span><br></pre></td></tr></table></figure>
+
+<p>可以看到虽然有_<em>call</em><em>()方法，但他并没有像我们上面写的那样定义一个def  _<em>call</em></em>()方法，分析一下这句话：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__call__ : Callable[..., Any] = _wrapped_call_impl</span><br></pre></td></tr></table></figure>
+
+<p>这里Callable[…, Any] 是一个<strong>类型提示</strong>，用来表示一个可调用对象的类型。<strong>类型提示是什么</strong>：</p>
+<p>类型提示是一种在函数参数、返回值以及变量上添加类型信息的注解，这些注解<strong>并不会影响运行时的行为，但可以被静态类型检查工具和IDE用来提供更好的代码分析和错误检测。</strong></p>
+<p>你定义函数时 def fun(a:int) 这里的a:int 就是类型提示</p>
+<p>让我们来分解这个类型提示的含义：</p>
+<ol>
+<li><p>[…]: 这个省略号 … 表示可接受任意数量的参数，即函数或方法可以接受任意数量的参数，包括零个参数。</p>
+</li>
+<li><p>Any: 这个关键字表示函数或方法可以返回任意类型的值。</p>
+<p>综合起来，<strong>_<em>call</em>_ : Callable[…, Any] 表示这个类型可以是一个接受任意数量参数的可调用对象，并且可以返回任意类型的值。</strong>在类型提示中，这种方式用于表达灵活的函数签名，特别是当函数可能具有不固定参数数量或不确定返回类型时。</p>
+</li>
+</ol>
+<p>而后面的** &#x3D; <em>wrapped_call_impl 相当于给这个_<em>call</em></em>()方法取了一个别名**，接下来我们去找这个方法，源码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_wrapped_call_impl</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">    <span class="keyword">if</span> self._compiled_call_impl <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> self._compiled_call_impl(*args, **kwargs)  <span class="comment"># type: ignore[misc]</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> self._call_impl(*args, **kwargs)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这里根据对象实例中的 _compiled_call_impl 属性是否不为 None执行不同的方法，</p>
+<p>当_compiled_call_impl 不为None时，执行self._compiled_call_impl(*args, **kwargs)</p>
+<p>否则执行self._call_impl(*args, **kwargs)</p>
+<p>观看源码，可以发现<strong>一般情况下，_compiled_call_impl 都是None的，除非你调用了Module里的compile方法</strong>，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">compile</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Compile this Module&#x27;s forward using :func:`torch.compile`.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    This Module&#x27;s `__call__` method is compiled and all arguments are passed as-is</span></span><br><span class="line"><span class="string">    to :func:`torch.compile`.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    See :func:`torch.compile` for details on the arguments for this function.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    self._compiled_call_impl = torch.<span class="built_in">compile</span>(self._call_impl, *args, **kwargs)</span><br></pre></td></tr></table></figure>
+
+<p>根据源码的注释，可以看到这段代码的使用torch.compile编译模块的_<em>call</em><em>()方法，其效果是将当前模块的 _<em>call</em></em> 方法进行了编译或者优化，并将优化后的实现保存在 _compiled_call_impl 属性中。编译后的实现可以提升执行效率或者改进其他方面的性能，具体取决于 torch.compile 函数的实现和参数设置。</p>
+<p>如果你未调用过该compile方法，那么_wrapped_call_impl()接下来就会执行_call_impl(), _call_impl()源码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_call_impl</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">    forward_call = (self._slow_forward <span class="keyword">if</span> torch._C._get_tracing_state() <span class="keyword">else</span> self.forward)</span><br><span class="line">    <span class="comment"># If we don&#x27;t have any hooks, we want to skip the rest of the logic in</span></span><br><span class="line">    <span class="comment"># this function, and just call forward.</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> (self._backward_hooks <span class="keyword">or</span> self._backward_pre_hooks <span class="keyword">or</span> self._forward_hooks <span class="keyword">or</span> self._forward_pre_hooks</span><br><span class="line">            <span class="keyword">or</span> _global_backward_pre_hooks <span class="keyword">or</span> _global_backward_hooks</span><br><span class="line">            <span class="keyword">or</span> _global_forward_hooks <span class="keyword">or</span> _global_forward_pre_hooks):</span><br><span class="line">        <span class="keyword">return</span> forward_call(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        result = <span class="literal">None</span></span><br><span class="line">    ...后面的太长省略</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，分析forward_call &#x3D; (self._slow_forward if torch._C._get_tracing_state() else self.forward) </p>
+<p><strong>torch._C._get_tracing_state() 函数用来检查当前是否处于追踪状态（tracing state）</strong>。如果处于追踪状态，说明在进行模型的图形化表示（例如在 TorchScript 中），此时使用 _slow_forward 方法。</p>
+<p>否则使用 self.forward 方法。</p>
+<p>后面的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> (self._backward_hooks <span class="keyword">or</span> self._backward_pre_hooks <span class="keyword">or</span> self._forward_hooks <span class="keyword">or</span> self._forward_pre_hooks</span><br><span class="line">        <span class="keyword">or</span> _global_backward_pre_hooks <span class="keyword">or</span> _global_backward_hooks</span><br><span class="line">        <span class="keyword">or</span> _global_forward_hooks <span class="keyword">or</span> _global_forward_pre_hooks):</span><br><span class="line">    <span class="keyword">return</span> forward_call(*args, **kwargs)</span><br></pre></td></tr></table></figure>
+
+<p>意思是：如果当前模块没有任何的钩子（hooks），则跳过此方法中的其他逻辑，直接调用 forward_call 方法并返回其结果。<br><strong>钩子（hooks）通常用于在模型运行过程中添加额外的操作或者记录信息，例如日志、梯度信息等。</strong></p>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文链接 : </strong><a class="permalink" href="https://shuaibisheng666.github.io/2024/07/05/pytorch%E4%B8%AD%E7%9A%84__call__()%E6%96%B9%E6%B3%95%E4%B8%8Eforward()%E6%96%B9%E6%B3%95/">https://shuaibisheng666.github.io/2024/07/05/pytorch中的__call__()方法与forward()方法/</a></p>
+    <p><strong>This article is available under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a> License</strong></p>
+</blockquote>
+
+
+    </article>
+    
+    <section id="comments">
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目录</h3>
+            
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+<script src="/js/local-search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+
+    </body>
+</html>
