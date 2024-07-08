@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     <title>函数指针与函数数组 | sheng's blog</title>
-    <meta name="description" content="1. 函数指针我们都知道c语言指针可以指向整形，浮点型，字符等等，但实际上指针也可以指向函数。 实际上当我们定义一个函数时，最终都会创建一个函数指针存储函数的地址。 那么函数指针怎么定义呢？函数指针的定义不同于其他变量的定义，其他变量的定义是这样的： 1变量类型 变量名；  但c语言没有函数类型这一变量类型，因为函数类型太多了，你可以给一个函数传入整形，浮点，返回字符，指针等等， 因此函数类型不是">
+    <meta name="description" content="1. 函数指针我们都知道c语言指针可以指向整形，浮点型，字符等等，但实际上指针也可以指向函数。 实际上当我们定义一个函数时，最终都会创建一个函数指针存储函数的地址。 那么函数指针怎么定义呢？函数指针的定义不同于其他变量的定义，其他变量的定义是这样的： 1变量类型 变量名；  但c语言没有函数类型这一变量类型，因为函数类型太多了，你可以给一个函数传入整形，浮点，也可以返回字符，指针等等， 因此函数类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="函数指针与函数数组">
 <meta property="og:url" content="https://shuaibisheng666.github.io/2024/07/06/%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E4%B8%8E%E5%87%BD%E6%95%B0%E6%95%B0%E7%BB%84/index.html">
 <meta property="og:site_name" content="sheng&#39;s blog">
-<meta property="og:description" content="1. 函数指针我们都知道c语言指针可以指向整形，浮点型，字符等等，但实际上指针也可以指向函数。 实际上当我们定义一个函数时，最终都会创建一个函数指针存储函数的地址。 那么函数指针怎么定义呢？函数指针的定义不同于其他变量的定义，其他变量的定义是这样的： 1变量类型 变量名；  但c语言没有函数类型这一变量类型，因为函数类型太多了，你可以给一个函数传入整形，浮点，返回字符，指针等等， 因此函数类型不是">
+<meta property="og:description" content="1. 函数指针我们都知道c语言指针可以指向整形，浮点型，字符等等，但实际上指针也可以指向函数。 实际上当我们定义一个函数时，最终都会创建一个函数指针存储函数的地址。 那么函数指针怎么定义呢？函数指针的定义不同于其他变量的定义，其他变量的定义是这样的： 1变量类型 变量名；  但c语言没有函数类型这一变量类型，因为函数类型太多了，你可以给一个函数传入整形，浮点，也可以返回字符，指针等等， 因此函数类">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-06T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-06T15:43:41.176Z">
+<meta property="article:modified_time" content="2024-07-06T17:30:54.211Z">
 <meta property="article:author" content="Ma JiaSheng">
 <meta property="article:tag" content="c语言">
 <meta property="article:tag" content="指针">
@@ -222,7 +222,7 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">字数统计: 582(字)</span>
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 585(字)</span>
     
     
         <span class="post-readcount" itemprop="timeRequired">阅读时长: 2(分)</span>
@@ -237,7 +237,7 @@
 <p>那么函数指针怎么定义呢？函数指针的定义不同于其他变量的定义，其他变量的定义是这样的：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">变量类型 变量名；</span><br></pre></td></tr></table></figure>
 
-<p>但c语言没有函数类型这一变量类型，因为函数类型太多了，你可以给一个函数传入整形，浮点，返回字符，指针等等，</p>
+<p>但c语言没有函数类型这一变量类型，因为函数类型太多了，你可以给一个函数传入整形，浮点，也可以返回字符，指针等等，</p>
 <p>因此函数类型不是单一的。</p>
 <p>因此要确定一个函数的类型需要确定他的形参数量和类型，返回参数的类型。</p>
 <p>因此函数指针的定义是：</p>
