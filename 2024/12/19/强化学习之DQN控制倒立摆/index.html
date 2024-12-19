@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html  lang="zh-CN" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>强化学习之DQN控制倒立摆 | sheng's blog</title>
+    <meta name="description" content="一、强化学习介绍强化学习（Reinforcement learning，RL）是人工智能和自动控制的一个交叉学科分支。 强化学习（RL）是人工智能和自动控制的一个交叉学科分支。他讨论的问题是一个智能体(agent) 怎么在一个复杂不确定的环境(environment) 里面去极大化它能获得的奖励。通过感知所处环境的 状态(state) 对 动作(action) 的 反应(reward)， 来指导更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化学习之DQN控制倒立摆">
+<meta property="og:url" content="https://shuaibisheng666.github.io/2024/12/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BDQN%E6%8E%A7%E5%88%B6%E5%80%92%E7%AB%8B%E6%91%86/index.html">
+<meta property="og:site_name" content="sheng&#39;s blog">
+<meta property="og:description" content="一、强化学习介绍强化学习（Reinforcement learning，RL）是人工智能和自动控制的一个交叉学科分支。 强化学习（RL）是人工智能和自动控制的一个交叉学科分支。他讨论的问题是一个智能体(agent) 怎么在一个复杂不确定的环境(environment) 里面去极大化它能获得的奖励。通过感知所处环境的 状态(state) 对 动作(action) 的 反应(reward)， 来指导更">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shuaibisheng666.github.io/2024/12/19/images/24.12.19/d609241dfef4773636a6410e053fee7d.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/24.12.19/2908f01847986842e0a07d91bb8f2785.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/24.12.19/fc0bfbb29c6de5d7878823107f6269da.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/24.12.19/e53753ada3b60bddc1c4d9f2661d569e.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/24.12.19/97d1dbdacbed5b80c0bbb029718cc779.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/24.12.19/f5378aae7dd871f317fd27fb4ee9a5d7.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/images/24.12.19/61574bbe3e93398d3abb5f9801bff850.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/..%5Cimages%5C24.12.19%5C8866f4cd13f7e7625a03d5aa40199af0.png">
+<meta property="og:image" content="https://shuaibisheng666.github.io/..%5Cimages%5C24.12.19%5C10c33a89b3fd7b25ceaf6c6eae7a9d79.gif">
+<meta property="article:published_time" content="2024-12-19T13:19:07.000Z">
+<meta property="article:modified_time" content="2024-12-19T13:19:07.438Z">
+<meta property="article:author" content="Ma JiaSheng">
+<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="DQN">
+<meta property="article:tag" content="倒立摆">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shuaibisheng666.github.io/2024/12/19/images/24.12.19/d609241dfef4773636a6410e053fee7d.png">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://github.com/shuaibisheng666" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="https://www.gravatar.com/avatar/c85acca1e2d976783b85f9e436e93f5c?s=128" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block">Jiasheng Ma</h2>
+            <h3 id="title" class="hidden lg:block">Student &amp; Coder</h3>
+            
+            <small id="location" class="hidden lg:block">
+                <i class="iconfont icon-map-icon"></i>
+                Guangzhou, China
+            </small>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" placeholder="搜索" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<div id="content-json" data-placeholder="搜索" class="invisible hidden">/content.json</div>
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜索" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">首页</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">归档</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">分类</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">标签</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">项目</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">友链</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">关于</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a href="/atom.xml">
+                <i class="iconfont social-icon icon-rss"></i>
+                <span class="menu-title hidden lg:inline">menu.rss</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            强化学习之DQN控制倒立摆
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2024/12/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BDQN%E6%8E%A7%E5%88%B6%E5%80%92%E7%AB%8B%E6%91%86/" class="article-date">
+	  <time datetime="2024-12-19T13:19:07.000Z" itemprop="datePublished">12月 19</time>
+	</a>
+</span>
+
+                
+    <span class="article-category">
+    <i class="iconfont icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a> , <a class="article-category-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/DQN/">DQN</a>
+  </span>
+
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-none-link" href="/tags/DQN/" rel="tag">DQN</a>, <a class="article-tag-none-link" href="/tags/%E5%80%92%E7%AB%8B%E6%91%86/" rel="tag">倒立摆</a>, <a class="article-tag-none-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2024/12/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BDQN%E6%8E%A7%E5%88%B6%E5%80%92%E7%AB%8B%E6%91%86/#comments" class="article-comment-link">
+                        评论
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">字数统计: 3.3k(字)</span>
+    
+    
+        <span class="post-readcount" itemprop="timeRequired">阅读时长: 14(分)</span>
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h2 id="一、强化学习介绍"><a href="#一、强化学习介绍" class="headerlink" title="一、强化学习介绍"></a>一、强化学习介绍</h2><p>强化学习（Reinforcement learning，RL）是人工智能和自动控制的一个交叉学科分支。</p>
+<p>强化学习（RL）是人工智能和自动控制的一个交叉学科分支。他讨论的问题是一个智能体(agent) 怎么在一个复杂不确定的环境(environment) 里面去极大化它能获得的奖励。通过感知所处环境的 状态(state) 对 动作(action) 的 反应(reward)， 来指导更好的动作，从而获得最大的 收益(return)，这被称为在交互中学习，这样的学习方法就被称作强化学习。</p>
+<img src="../images/24.12.19/d609241dfef4773636a6410e053fee7d.png" alt="截图" style="zoom:30%;" />
+
+<p>近些年强化学习发展迅速，并且广泛应用于各个领域，例如自动驾驶，游戏，机器人控制等等。比如前些年大火的AlphaGo就采取了深度学习和强化学习的方法，在围棋领域战胜了人类最强的棋手。</p>
+<ul>
+<li>环境(Environment) 是一个外部系统，智能体处于这个系统中，能够感知到这个系统并且能够基于感知到的状态做出一定的行动。</li>
+<li>智能体(Agent) 是一个嵌入到环境中的系统，能够通过采取行动来改变环境的状态。</li>
+<li>状态(State)&#x2F;观察值(Observation)：状态是对世界的完整描述，不会隐藏世界的信息。观测是对状态的部分描述，可能会遗漏一些信息。</li>
+<li>动作(Action)：不同的环境允许不同种类的动作，在给定的环境中，有效动作的集合经常被称为动作空间(action space)，包括离散动作空间(discrete action spaces)和连续动作空间(continuous action spaces)，例如，走迷宫机器人如果只有东南西北这 4 种移动方式，则其为离散动作空间;如果机器人向 360◦ 中的任意角度都可以移动，则为连续动作空间。</li>
+<li>奖励(Reward)：是由环境给的一个标量的反馈信号(scalar feedback signal)，这个信号显示了智能体在某一步采 取了某个策略的表现如何。</li>
+</ul>
+<p>打个比方，假设我们操控一个游戏角色在一个二维地图上探索，</p>
+<p><img src="/../images/24.12.19/2908f01847986842e0a07d91bb8f2785.png" alt="截图"></p>
+<p>那么整张地图就是<strong>环境</strong>，而这名游戏角色就是一个<strong>智能体</strong>，智能体可以采取四个<strong>动作</strong>，上下左右，这四个动作构成一个<strong>动作空间</strong>，这个智能体所处的位置就是他的<strong>状态</strong>，当他执行某一个动作时，他的位置，也就是状态就会更新，同时环境会给他一个reward。这张地图有三种不同的格子，蓝色的代表安全的，红色的代表危险，草色的代表目标，当我们采取动作进入一个蓝色格子时，reward为0，进入红色格子时，reward为-10，进入草色格子时，reward为+5。</p>
+<p>通过不停的在这个环境中探索，这个智能体应该能学到如何快速到达目标格子，规避危险的格子。</p>
+<h2 id="二、Q-learning算法"><a href="#二、Q-learning算法" class="headerlink" title="二、Q-learning算法"></a>二、Q-learning算法</h2><p>Q-learning 是强化学习中一个非常经典的算法，是一种基于值迭代的强化学习算法，主要用于在给定环境中学习一个策略，使得智能体（agent）能够在与环境交互的过程中获得最大累计奖励。它通过学习一个状态-动作值函数（Q函数）来指导智能体的行为选择，适用于各种<strong>离散状态和动作</strong>的任务环境。</p>
+<p>Q 学习算法使用状态动作值（也称为 Q 值）的 Q 表。这个 Q 表对<strong>每个状态有一行</strong>，对<strong>每个动作有一个列</strong>。每个单元格包含相应状态-动作对的估计 Q 值。<br>我们首先将所有 Q 值初始化为零。当agent与环境交互并获得反馈时，算法会迭代地改进这些 Q 值，直到它们收敛到最优 Q 值。它使用贝尔曼方程更新它们。</p>
+<p>我们还是使用上面图中机器人走迷宫的例子来说明Q-learning算法。</p>
+<p>那么图中智能体的<strong>位置就是状态</strong>，<strong>上下左右就是动作</strong>，那么我们可以构建如下的Q表：</p>
+<p><img src="/../images/24.12.19/fc0bfbb29c6de5d7878823107f6269da.png" alt="截图"></p>
+<p>当智能体处于某个位置(状态），他会从表里那一行的四个动作里选择一个Q值最大的动作执行，当然我们一开始的Q表是全为0的，那么智能体的动作就完全随机，相当于完全处于探索状态。</p>
+<p>那么我们的目标就是优化这张Q表，让智能体能根据这张Q表做出“明智”的选择。</p>
+<p>大概过程如下：</p>
+<p>智能体四处探索，每次执行一次动作后，我们会获得下一个状态和reward以及下一个状态每一个动作的Q值，我们取里面最大的Q值和reward来更新当前执行的这个动作的Q值。</p>
+<p><img src="/../images/24.12.19/e53753ada3b60bddc1c4d9f2661d569e.png" alt="截图"></p>
+<br/>
+
+<p>伪代码如下：</p>
+<p><img src="/../images/24.12.19/97d1dbdacbed5b80c0bbb029718cc779.png" alt="截图"></p>
+<h2 id="三、DQN算法"><a href="#三、DQN算法" class="headerlink" title="三、DQN算法"></a>三、DQN算法</h2><p>但是Qlearning是有局限性的，就是有时候智能体的状态是无穷多的，我们用Q表无法完全表示，比如倒立摆情况下，杆子的状态是由位置速度等变量组成的，但是杆子的位置速度等并非离散值而是一个连续值，比如杆子的速度可以是1，也可以是1.1，也可以是1.11，相当于状态是无穷多的，这个时候我们就不使用Q表了，而是使用神经网络来代替这张Q表，当输入一个状态时，我们会输出各个动作的Q值，然后从里面选择Q值最大的动作执行。</p>
+<p><img src="/../images/24.12.19/f5378aae7dd871f317fd27fb4ee9a5d7.png" alt="截图"></p>
+<ul>
+<li>除了用神经网络代替Q表外，DQN还有两个独特的机制，分别是新旧两个神经网络和经验回放机制。<br>经验回放：智能体在与环境交互过程中，将经历的状态转移存储在经验回放缓冲区中。每次训练时，从缓冲区中随机抽取小批量样本进行训练，以打破数据之间的相关性。</li>
+<li>目标网络：DQN使用两个网络：一个是当前的Q网络，另一个是目标网络。目标网络的参数在一定的时间间隔内更新，以减少训练过程中的波动。目标网络的引入使得Q值的更新更加稳定。<br>流程图如下：</li>
+</ul>
+<p><img src="/../images/24.12.19/61574bbe3e93398d3abb5f9801bff850.png" alt="截图"></p>
+<h2 id="四、倒立摆控制实验"><a href="#四、倒立摆控制实验" class="headerlink" title="四、倒立摆控制实验"></a>四、倒立摆控制实验</h2><p>接下来我们通过一个实际的例子来演示一下DQN，我们将在gym仿真环境下实现倒立摆的控制。</p>
+<br/>
+
+<p>OpenAI Gym仿真环境介绍<br>          Gym是由OpenAI开发的一个用于强化学习研究的工具包，它提供了大量的标准化的仿真环境，供研究人员和开发者测试和开发强化学习算法。Gym的设计目的是简化和标准化强化学习的实验环境，以便能够方便地评估不同的RL算法。</p>
+<p>Gym提供了统一的接口，使得不同的强化学习算法能够在不同的环境中进行训练和测试。接下来我们使用Gym仿真环境提供的一个倒立摆仿真环境CartPole-v1。</p>
+<p>Cart Pole即车杆游戏，游戏模型如下图所示。游戏里面有一个小车，上有竖着一根杆子，每次重置后的初始状态会有所不同。小车需要左右移动来保持杆子竖直，为了保证游戏继续进行需要满足以下两个条件：</p>
+<ul>
+<li>杆子倾斜的角度θ 不能大于15°</li>
+<li>小车移动的位置x需保持在一定范围（中间到两边各2.4个单位长度）<br><img src="/..%5Cimages%5C24.12.19%5C8866f4cd13f7e7625a03d5aa40199af0.png" alt="截图"></li>
+</ul>
+<p>对于这么一个系统，我们主要关注如下几个变量：<br><strong>动作（action）：</strong></p>
+<ul>
+<li>左移（0）</li>
+<li>右移（1）</li>
+</ul>
+<p><strong>状态变量（state variables）：</strong></p>
+<ul>
+<li><p>x ：小车在轨道上的位置（position of the cart on the track）</p>
+</li>
+<li><p>θ：杆子与竖直方向的夹角（angle of the pole with the vertical）</p>
+</li>
+<li><p>x’：小车速度（cart velocity）</p>
+</li>
+<li><p>θ‘：角度变化率（rate of change of the angle）</p>
+<pre><code>  转换成强化学习的语言，就是小车和杆相当于一个智能体，小车的速度和位置和杆的角度和角速度4个状态构成了一个智能体的状态，智能体需要根据自己当前的状态执行一个动作，执行完动作后环境需要返回智能体的下一个状态和reward，智能体需要根据得到的下一个状态和reward更新自己的决策。
+
+  之所以我们选择DQN来控制倒立摆而不使用Qlearning的原因在于，倒立摆的状态变量取值是连续的，因此倒立摆的状态是无穷的，我们不可能用一个Q表来储存这个智能体的全部状态，因此我们选择神经网络来获得动作的Q值。
+</code></pre>
+</li>
+</ul>
+<p>完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gymnasium <span class="keyword">as</span> gym</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple, deque</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> count</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line">env = gym.make(<span class="string">&#x27;CartPole-v1&#x27;</span>, render_mode=<span class="string">&#x27;human&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># set up matplotlib</span></span><br><span class="line">is_ipython = <span class="string">&#x27;inline&#x27;</span> <span class="keyword">in</span> matplotlib.get_backend()</span><br><span class="line"><span class="keyword">if</span> is_ipython:</span><br><span class="line">    <span class="keyword">from</span> IPython <span class="keyword">import</span> display</span><br><span class="line"></span><br><span class="line">plt.ion()</span><br><span class="line"></span><br><span class="line"><span class="comment"># if GPU is to be used</span></span><br><span class="line">device = torch.device(</span><br><span class="line">    <span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span></span><br><span class="line">    <span class="string">&quot;mps&quot;</span> <span class="keyword">if</span> torch.backends.mps.is_available() <span class="keyword">else</span></span><br><span class="line">    <span class="string">&quot;cpu&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Transition = namedtuple(<span class="string">&#x27;Transition&#x27;</span>,</span><br><span class="line">                        (<span class="string">&#x27;state&#x27;</span>, <span class="string">&#x27;action&#x27;</span>, <span class="string">&#x27;next_state&#x27;</span>, <span class="string">&#x27;reward&#x27;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ReplayMemory</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, capacity</span>):</span><br><span class="line">        self.memory = deque([], maxlen=capacity)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">push</span>(<span class="params">self, *args</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Save a transition&quot;&quot;&quot;</span></span><br><span class="line">        self.memory.append(Transition(*args))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sample</span>(<span class="params">self, batch_size</span>):</span><br><span class="line">        <span class="keyword">return</span> random.sample(self.memory, batch_size)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.memory)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DQN</span>(nn.Module):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n_observations, n_actions</span>):</span><br><span class="line">        <span class="built_in">super</span>(DQN, self).__init__()</span><br><span class="line">        self.layer1 = nn.Linear(n_observations, <span class="number">128</span>)</span><br><span class="line">        self.layer2 = nn.Linear(<span class="number">128</span>, <span class="number">128</span>)</span><br><span class="line">        self.layer3 = nn.Linear(<span class="number">128</span>, n_actions)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Called with either one element to determine next action, or a batch</span></span><br><span class="line">    <span class="comment"># during optimization. Returns tensor([[left0exp,right0exp]...]).</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = F.relu(self.layer1(x))</span><br><span class="line">        x = F.relu(self.layer2(x))</span><br><span class="line">        <span class="keyword">return</span> self.layer3(x)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># BATCH_SIZE is the number of transitions sampled from the replay buffer</span></span><br><span class="line"><span class="comment"># GAMMA is the discount factor as mentioned in the previous section</span></span><br><span class="line"><span class="comment"># EPS_START is the starting value of epsilon</span></span><br><span class="line"><span class="comment"># EPS_END is the final value of epsilon</span></span><br><span class="line"><span class="comment"># EPS_DECAY controls the rate of exponential decay of epsilon, higher means a slower decay</span></span><br><span class="line"><span class="comment"># TAU is the update rate of the target network</span></span><br><span class="line"><span class="comment"># LR is the learning rate of the ``AdamW`` optimizer</span></span><br><span class="line">BATCH_SIZE = <span class="number">128</span></span><br><span class="line">GAMMA = <span class="number">0.99</span></span><br><span class="line">EPS_START = <span class="number">0.9</span></span><br><span class="line">EPS_END = <span class="number">0.05</span></span><br><span class="line">EPS_DECAY = <span class="number">1000</span></span><br><span class="line">TAU = <span class="number">0.005</span></span><br><span class="line">LR = <span class="number">1e-4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get number of actions from gym action space</span></span><br><span class="line">n_actions = env.action_space.n</span><br><span class="line"><span class="comment"># Get the number of state observations</span></span><br><span class="line">state, info = env.reset()</span><br><span class="line">n_observations = <span class="built_in">len</span>(state)</span><br><span class="line"></span><br><span class="line">policy_net = DQN(n_observations, n_actions).to(device)</span><br><span class="line">target_net = DQN(n_observations, n_actions).to(device)</span><br><span class="line">target_net.load_state_dict(policy_net.state_dict())</span><br><span class="line"></span><br><span class="line">optimizer = optim.AdamW(policy_net.parameters(), lr=LR, amsgrad=<span class="literal">True</span>)</span><br><span class="line">memory = ReplayMemory(<span class="number">10000</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">steps_done = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">select_action</span>(<span class="params">state</span>):</span><br><span class="line">    <span class="keyword">global</span> steps_done</span><br><span class="line">    sample = random.random()</span><br><span class="line">    eps_threshold = EPS_END + (EPS_START - EPS_END) * \</span><br><span class="line">        math.exp(-<span class="number">1.</span> * steps_done / EPS_DECAY)</span><br><span class="line">    steps_done += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> sample &gt; eps_threshold:</span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            <span class="comment"># t.max(1) will return the largest column value of each row.</span></span><br><span class="line">            <span class="comment"># second column on max result is index of where max element was</span></span><br><span class="line">            <span class="comment"># found, so we pick action with the larger expected reward.</span></span><br><span class="line">            <span class="keyword">return</span> policy_net(state).<span class="built_in">max</span>(<span class="number">1</span>).indices.view(<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> torch.tensor([[env.action_space.sample()]], device=device, dtype=torch.long)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">episode_durations = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plot_durations</span>(<span class="params">show_result=<span class="literal">False</span></span>):</span><br><span class="line">    plt.figure(<span class="number">1</span>)</span><br><span class="line">    durations_t = torch.tensor(episode_durations, dtype=torch.<span class="built_in">float</span>)</span><br><span class="line">    <span class="keyword">if</span> show_result:</span><br><span class="line">        plt.title(<span class="string">&#x27;Result&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        plt.clf()</span><br><span class="line">        plt.title(<span class="string">&#x27;Training...&#x27;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;Episode&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;Duration&#x27;</span>)</span><br><span class="line">    plt.plot(durations_t.numpy())</span><br><span class="line">    <span class="comment"># Take 100 episode averages and plot them too</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(durations_t) &gt;= <span class="number">100</span>:</span><br><span class="line">        means = durations_t.unfold(<span class="number">0</span>, <span class="number">100</span>, <span class="number">1</span>).mean(<span class="number">1</span>).view(-<span class="number">1</span>)</span><br><span class="line">        means = torch.cat((torch.zeros(<span class="number">99</span>), means))</span><br><span class="line">        plt.plot(means.numpy())</span><br><span class="line"></span><br><span class="line">    plt.pause(<span class="number">0.001</span>)  <span class="comment"># pause a bit so that plots are updated</span></span><br><span class="line">    <span class="keyword">if</span> is_ipython:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> show_result:</span><br><span class="line">            display.display(plt.gcf())</span><br><span class="line">            display.clear_output(wait=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            display.display(plt.gcf())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">optimize_model</span>():</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(memory) &lt; BATCH_SIZE:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    transitions = memory.sample(BATCH_SIZE)</span><br><span class="line">    <span class="comment"># Transpose the batch (see https://stackoverflow.com/a/19343/3343043 for</span></span><br><span class="line">    <span class="comment"># detailed explanation). This converts batch-array of Transitions</span></span><br><span class="line">    <span class="comment"># to Transition of batch-arrays.</span></span><br><span class="line">    batch = Transition(*<span class="built_in">zip</span>(*transitions))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute a mask of non-final states and concatenate the batch elements</span></span><br><span class="line">    <span class="comment"># (a final state would&#x27;ve been the one after which simulation ended)</span></span><br><span class="line">    non_final_mask = torch.tensor(<span class="built_in">tuple</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> s: s <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>,</span><br><span class="line">                                          batch.next_state)), device=device, dtype=torch.<span class="built_in">bool</span>)</span><br><span class="line">    non_final_next_states = torch.cat([s <span class="keyword">for</span> s <span class="keyword">in</span> batch.next_state</span><br><span class="line">                                                <span class="keyword">if</span> s <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>])</span><br><span class="line">    state_batch = torch.cat(batch.state)</span><br><span class="line">    action_batch = torch.cat(batch.action)</span><br><span class="line">    reward_batch = torch.cat(batch.reward)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute Q(s_t, a) - the model computes Q(s_t), then we select the</span></span><br><span class="line">    <span class="comment"># columns of actions taken. These are the actions which would&#x27;ve been taken</span></span><br><span class="line">    <span class="comment"># for each batch state according to policy_net</span></span><br><span class="line">    state_action_values = policy_net(state_batch).gather(<span class="number">1</span>, action_batch)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute V(s_&#123;t+1&#125;) for all next states.</span></span><br><span class="line">    <span class="comment"># Expected values of actions for non_final_next_states are computed based</span></span><br><span class="line">    <span class="comment"># on the &quot;older&quot; target_net; selecting their best reward with max(1).values</span></span><br><span class="line">    <span class="comment"># This is merged based on the mask, such that we&#x27;ll have either the expected</span></span><br><span class="line">    <span class="comment"># state value or 0 in case the state was final.</span></span><br><span class="line">    next_state_values = torch.zeros(BATCH_SIZE, device=device)</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        next_state_values[non_final_mask] = target_net(non_final_next_states).<span class="built_in">max</span>(<span class="number">1</span>).values</span><br><span class="line">    <span class="comment"># Compute the expected Q values</span></span><br><span class="line">    expected_state_action_values = (next_state_values * GAMMA) + reward_batch</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute Huber loss</span></span><br><span class="line">    criterion = nn.SmoothL1Loss()</span><br><span class="line">    loss = criterion(state_action_values, expected_state_action_values.unsqueeze(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Optimize the model</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    <span class="comment"># In-place gradient clipping</span></span><br><span class="line">    torch.nn.utils.clip_grad_value_(policy_net.parameters(), <span class="number">100</span>)</span><br><span class="line">    optimizer.step()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">or</span> torch.backends.mps.is_available():</span><br><span class="line">    num_episodes = <span class="number">600</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    num_episodes = <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i_episode <span class="keyword">in</span> <span class="built_in">range</span>(num_episodes):</span><br><span class="line">    <span class="comment"># Initialize the environment and get its state</span></span><br><span class="line">    state, info = env.reset()</span><br><span class="line">    state = torch.tensor(state, dtype=torch.float32, device=device).unsqueeze(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> count():</span><br><span class="line">        env.render()  <span class="comment"># Render the environment</span></span><br><span class="line">        action = select_action(state)</span><br><span class="line">        observation, reward, terminated, truncated, _ = env.step(action.item())</span><br><span class="line">        reward = torch.tensor([reward], device=device)</span><br><span class="line">        done = terminated <span class="keyword">or</span> truncated</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> terminated:</span><br><span class="line">            next_state = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            next_state = torch.tensor(observation, dtype=torch.float32, device=device).unsqueeze(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Store the transition in memory</span></span><br><span class="line">        memory.push(state, action, next_state, reward)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Move to the next state</span></span><br><span class="line">        state = next_state</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Perform one step of the optimization (on the policy network)</span></span><br><span class="line">        optimize_model()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Soft update of the target network&#x27;s weights</span></span><br><span class="line">        <span class="comment"># θ′ ← τ θ + (1 −τ )θ′</span></span><br><span class="line">        target_net_state_dict = target_net.state_dict()</span><br><span class="line">        policy_net_state_dict = policy_net.state_dict()</span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> policy_net_state_dict:</span><br><span class="line">            target_net_state_dict[key] = policy_net_state_dict[key]*TAU + target_net_state_dict[key]*(<span class="number">1</span>-TAU)</span><br><span class="line">        target_net.load_state_dict(target_net_state_dict)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> done:</span><br><span class="line">            episode_durations.append(t + <span class="number">1</span>)</span><br><span class="line">            plot_durations()</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Complete&#x27;</span>)</span><br><span class="line">plot_durations(show_result=<span class="literal">True</span>)</span><br><span class="line">plt.ioff()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>代码运行结果如下：<br><img src="/..%5Cimages%5C24.12.19%5C10c33a89b3fd7b25ceaf6c6eae7a9d79.gif" alt="PixPin_2024-12-19_20-39-16.gif"></p>
+<p>从左边的表可以看到，随着训练的epoch逐渐增加，倒立摆的持续时间越来越长。</p>
+
+        </div>
+        
+<blockquote class="copyright">
+    <p><strong>本文链接 : </strong><a class="permalink" href="https://shuaibisheng666.github.io/2024/12/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8BDQN%E6%8E%A7%E5%88%B6%E5%80%92%E7%AB%8B%E6%91%86/">https://shuaibisheng666.github.io/2024/12/19/强化学习之DQN控制倒立摆/</a></p>
+    <p><strong>This article is available under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a> License</strong></p>
+</blockquote>
+
+
+    </article>
+    
+    <section id="comments">
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">文章目录</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">一、强化学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Q-learning%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">二、Q-learning算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81DQN%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">三、DQN算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%80%92%E7%AB%8B%E6%91%86%E6%8E%A7%E5%88%B6%E5%AE%9E%E9%AA%8C"><span class="toc-number">4.</span> <span class="toc-text">四、倒立摆控制实验</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+
+
+<script src="/js/local-search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+
+    </body>
+</html>
