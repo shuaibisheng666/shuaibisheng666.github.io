@@ -315,14 +315,14 @@
 </li>
 </ol>
 <p><strong>检测是否安装成功</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ npm -v</span><br><span class="line">$ git --version</span><br><span class="line">$ node -v</span><br><span class="line">$ hexo -v</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ npm -v<br>$ git --version<br>$ node -v<br>$ hexo -v<br></code></pre></td></tr></table></figure>
 <hr>
 <h2 id="二-初始化"><a href="#二-初始化" class="headerlink" title="二. 初始化"></a>二. 初始化</h2><ol>
 <li>新建一个文件夹(如：MyBlog)</li>
 <li>进入文件夹，右键选择git bash here</li>
-<li>输入命令 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+<li>输入命令 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">$ hexo init<br></code></pre></td></tr></table></figure>
 可以看到文件里生成了许多文件</li>
-<li>输入 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g	#生成静态网页文件(生成文件夹public)</span><br><span class="line">$ hexo s	#开启服务</span><br></pre></td></tr></table></figure></li>
+<li>输入 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">$ hexo g	#生成静态网页文件(生成文件夹public)<br>$ hexo s	#开启服务<br></code></pre></td></tr></table></figure></li>
 <li>在浏览器输入localhost:4000&#x2F;即可看到hello word网页</li>
 </ol>
 <hr>
@@ -334,21 +334,21 @@
 <li>然后在MyBlog&#x2F;_config.yml中找到theme: 将后面改为与你下载的主题文件夹同名，注意 : 后面要有一个空格。</li>
 </ul>
 </li>
-<li>在git bash中输入命令 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure></li>
+<li>在git bash中输入命令 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo g<br>$ hexo s<br></code></pre></td></tr></table></figure></li>
 <li>重新打开localhost:4000&#x2F;查看主题是否生效</li>
 </ol>
 <p><strong>注意根目录下和theme目录下都应该有一个_config.yml,前者是配置全局的一些设置，后者是配置这个主题的一些设置</strong></p>
 <hr>
 <h2 id="四-自定义"><a href="#四-自定义" class="headerlink" title="四. 自定义"></a>四. 自定义</h2><ol>
-<li>输入以下命令会在MyBlog&#x2F;source下生成文件夹，并在文件夹中生成index.md文件，具体可以根据你下载的主题进行配置 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &quot;example&quot;</span><br></pre></td></tr></table></figure>
+<li>输入以下命令会在MyBlog&#x2F;source下生成文件夹，并在文件夹中生成index.md文件，具体可以根据你下载的主题进行配置 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs git">hexo new page &quot;example&quot;<br></code></pre></td></tr></table></figure>
  <strong>生成后的index文件需要进行一些修改，如指定好layout，否则在执行hexo g的时候可能会报错</strong></li>
-<li>一般来说需要建立几个特殊的文件夹，如tags，categories <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page &quot;tags&quot;</span><br><span class="line">$ hexo new page &quot;categories&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
- 然后在生成的index.md的font-matter添加一些信息，如 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type: &quot;tags&quot;</span><br><span class="line">layout: tags</span><br></pre></td></tr></table></figure></li>
+<li>一般来说需要建立几个特殊的文件夹，如tags，categories <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs haxe">$ hexo <span class="hljs-keyword">new</span> <span class="hljs-type">page</span> <span class="hljs-string">&quot;tags&quot;</span><br>$ hexo <span class="hljs-keyword">new</span> <span class="hljs-type">page</span> <span class="hljs-string">&quot;categories&quot;</span><br><br></code></pre></td></tr></table></figure>
+ 然后在生成的index.md的font-matter添加一些信息，如 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">type:</span> <span class="hljs-string">&quot;tags&quot;</span><br><span class="hljs-symbol">layout:</span> tags<br></code></pre></td></tr></table></figure></li>
 <li>制作自定义的网页<ul>
 <li>一般来说，网页采取特定布局就放在MyBlog&#x2F;source的特定文件夹下</li>
-<li>用markdown(.md文件)制作<br> 输入以下命令可以生成指定布局的文章，默认为post <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure></li>
-<li>需要在Front-matter，也就是是文件最上方以 — 分隔的区域，用于指定个别文件的变量，如： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">date: 2013/7/13 20:46:25</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
-<li>编写好.md文件后输入以下命令： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean $$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure></li>
+<li>用markdown(.md文件)制作<br> 输入以下命令可以生成指定布局的文章，默认为post <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">$ hexo <span class="hljs-keyword">new</span> [layout] &lt;<span class="hljs-built_in">title</span>&gt;<br></code></pre></td></tr></table></figure></li>
+<li>需要在Front-matter，也就是是文件最上方以 — 分隔的区域，用于指定个别文件的变量，如： <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">Hello</span> <span class="hljs-string">World</span><br><span class="hljs-attr">date:</span> <span class="hljs-number">2013</span><span class="hljs-string">/7/13</span> <span class="hljs-number">20</span><span class="hljs-string">:46:25</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure></li>
+<li>编写好.md文件后输入以下命令： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs git">$ hexo clean $$ hexo g<br>$ hexo s<br></code></pre></td></tr></table></figure></li>
 <li>打开localhost:4000&#x2F;查看是否生效</li>
 </ul>
 </li>
@@ -360,9 +360,9 @@
 <li><p>安装 hexo-deployer-git.</p>
 </li>
 <li><p>在 _config.yml（如果有已存在的请删除）添加如下配置：</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/&lt;username&gt;/&lt;project&gt;</span><br><span class="line">  # example, https://github.com/hexojs/hexojs.github.io</span><br><span class="line">  branch: gh-pages</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">deploy:</span><br><span class="hljs-symbol">  type:</span> git<br><span class="hljs-symbol">  repo:</span> https:<span class="hljs-comment">//github.com/&lt;username&gt;/&lt;project&gt;</span><br>  <span class="hljs-meta"># example, https:<span class="hljs-comment">//github.com/hexojs/hexojs.github.io</span></span><br><span class="hljs-symbol">  branch:</span> gh-pages<br></code></pre></td></tr></table></figure></li>
 <li><p>运行 </p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>
+ <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">$ hexo clean <span class="hljs-meta">&amp;&amp; hexo deploy</span><br></code></pre></td></tr></table></figure>
 <p> 有时候可能会报错连接错误，可以想办法加速(dddd)或者多试几次。</p>
 </li>
 <li><p>查看 username.github.io 上的网页是否部署成功。</p>

@@ -299,21 +299,21 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一-首先确保已经安装好QT"><a href="#一-首先确保已经安装好QT" class="headerlink" title="一. 首先确保已经安装好QT"></a>一. 首先确保已经安装好QT</h2><pre><code>1. QT官网：https://www.qt.io/zh-cn/
+                <h2 id="一-首先确保已经安装好QT"><a href="#一-首先确保已经安装好QT" class="headerlink" title="一. 首先确保已经安装好QT"></a>一. 首先确保已经安装好QT</h2><pre><code class="hljs">1. QT官网：https://www.qt.io/zh-cn/
 2. 根据需求选择版本安装包
 3. 注册登录账号
 4. 选择好安装路径
 6. 选择好需要的开发组件，比如windows桌面就MingGw，android就选Android
 </code></pre>
-<h2 id="二-下载QT在github发布的MQTT源码"><a href="#二-下载QT在github发布的MQTT源码" class="headerlink" title="二. 下载QT在github发布的MQTT源码"></a>二. 下载QT在github发布的MQTT源码</h2><pre><code>1. 源码地址：https://github.com/qt/qtmqtt，需要确保在其分支中下载与本地QT版本对应的代码版本
+<h2 id="二-下载QT在github发布的MQTT源码"><a href="#二-下载QT在github发布的MQTT源码" class="headerlink" title="二. 下载QT在github发布的MQTT源码"></a>二. 下载QT在github发布的MQTT源码</h2><pre><code class="hljs">1. 源码地址：https://github.com/qt/qtmqtt，需要确保在其分支中下载与本地QT版本对应的代码版本
 2. 打开工程：在QT中选择打开项目，然后选择源码中的CmakeList.txt即可打开工程
 </code></pre>
-<h2 id="三-编译源码"><a href="#三-编译源码" class="headerlink" title="三. 编译源码"></a>三. 编译源码</h2><pre><code>1. 选择构建组件：选择好自己的构建组件，如果需求是想要在windows桌面下开发，则一般选择MingGW Desktop，  
+<h2 id="三-编译源码"><a href="#三-编译源码" class="headerlink" title="三. 编译源码"></a>三. 编译源码</h2><pre><code class="hljs">1. 选择构建组件：选择好自己的构建组件，如果需求是想要在windows桌面下开发，则一般选择MingGW Desktop，  
 如果是想开发一个android app，则选择android。
 2. 开始编译：点击build（构建）
 3. 构建完成并且没有错误的情况下，在源码同级目录会生成一个文件夹，编译输出文件都在里面
 </code></pre>
-<h2 id="四，导入模块"><a href="#四，导入模块" class="headerlink" title="四，导入模块"></a>四，导入模块</h2><pre><code>1. 打开输出文件，里面有五个文件夹的文件是需要用到的，分别是bin,include, lib, modules, mkspecs
+<h2 id="四，导入模块"><a href="#四，导入模块" class="headerlink" title="四，导入模块"></a>四，导入模块</h2><pre><code class="hljs">1. 打开输出文件，里面有五个文件夹的文件是需要用到的，分别是bin,include, lib, modules, mkspecs
 2. 打开自己QT的安装文件夹，找到编译mqtt源码用到的组件的目录，比如我的是D:\software\Qt\6.8.0\mingw_64，  
 你会发现这里面同样存在这五个文件夹，接下来我们只需要将编译源码得到的文件依次正确复制到QT的安装目录中即可
 3. 首先将编译源码得到的bin里的文件复制到mingw_64\bin里面
@@ -322,7 +322,7 @@
 6. 将编译源码得到的modules里的.json文件复制到mingw_64\mudules里面
 7. 将编译源码得到的mkspecs里的mudules文件夹整个复制到mingw_64\mkspecs
 </code></pre>
-<h2 id="五-验证导入模块是否成功"><a href="#五-验证导入模块是否成功" class="headerlink" title="五. 验证导入模块是否成功"></a>五. 验证导入模块是否成功</h2><pre><code>1. 按照前面编译源码的方法，打开下载的mqtt源码下的examples/mqtt，选择simpleclient,编译运行，如果成功会显示一个界面。
+<h2 id="五-验证导入模块是否成功"><a href="#五-验证导入模块是否成功" class="headerlink" title="五. 验证导入模块是否成功"></a>五. 验证导入模块是否成功</h2><pre><code class="hljs">1. 按照前面编译源码的方法，打开下载的mqtt源码下的examples/mqtt，选择simpleclient,编译运行，如果成功会显示一个界面。
 2. 接下来如果你的项目需要用到mqtt，直接在配置文件里加上 QT += mqtt即可
 </code></pre>
 
