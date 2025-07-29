@@ -1,9 +1,24 @@
+
+
 <!DOCTYPE html>
-<html  lang="zh-CN" >
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
-    <title>stm32cube+platformio环境开发 | sheng's blog</title>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jiasheng Ma">
+  <meta name="keywords" content="blog">
+  
     <meta name="description" content="stm32cube+platformio环境开发一. 所需软件 VScode 下载过程略 vscode官网 建议国内下载 stm32cubemx 下载过程略 st官网 建议国内下载 platformio 下载好vscode后，直接在左边插件搜索，选择下载量最多的即可，由于是从github下载故下载速度很慢(dddd) 下载好后点击左侧图标即可进入界面    二. stm32cubemx创建工程 打">
 <meta property="og:type" content="article">
 <meta property="og:title" content="stm32cube+platformio环境开发">
@@ -28,237 +43,267 @@
 <meta property="article:tag" content="hal库">
 <meta property="article:tag" content="platformio">
 <meta property="article:tag" content="vscode">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://shuaibisheng666.github.io/images/8.8/1659965131203.jpg">
+  
+  
+  
+  <title>stm32cube+platformio环境开发 - sheng&#39;s blog</title>
 
-    
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-
-    
-<link rel="stylesheet" href="/css/common.min.css">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
 
-    
-    
-    
-    
-        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
-    
-    
-    
-<link rel="stylesheet" href="/css/iconfont.min.css">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-    
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"shuaibisheng666.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
-    <body>
-        <header class="header header-fixture">
-    <div class="profile-search-wrap flex sm:block">
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
         
         
-        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
-            <a id="avatar" role="link" href="https://github.com/shuaibisheng666" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
-                <img src="https://www.gravatar.com/avatar/c85acca1e2d976783b85f9e436e93f5c?s=128" class="rounded-full" alt="avatar">
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
             </a>
-            <h2 id="name" class="hidden lg:block">Jiasheng Ma</h2>
-            <h3 id="title" class="hidden lg:block">Student &amp; Coder</h3>
-            
-            <small id="location" class="hidden lg:block">
-                <i class="iconfont icon-map-icon"></i>
-                Guangzhou, China
-            </small>
-            
-        </div>
+          </li>
+          
         
         
-<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
-    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
-        <div class="input-group table bg-gray-100 lg:bg-white w-full">
-            <input id="search-input" type="text" placeholder="搜索" class="inline-block w-full bg-gray-100 lg:bg-white p-1">
-            <span class="table-cell">
-                <button name="search tigger button" disabled>
-                    <i class="iconfont icon-search m-2"></i>
-                </button>
-            </span>
-        </div>
-    </form>
-        
-<div id="content-json" data-placeholder="搜索" class="invisible hidden">/content.json</div>
-<script id="search-teamplate" type="text/html" data-path="/content.json">
-    <div>
-        <div class="search-header bg-gray-400">
-            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="搜索" type="text">
-        </div>
-        <div class="search-result bg-gray-200">
-            {{#each searchPosts}}
-            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
-                <i class="iconfont icon-file"></i>
-                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
-                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
             </a>
-            {{/each}}
-        </div>
+          </li>
+        
+      </ul>
     </div>
-</script>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="stm32cube+platformio环境开发"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-08 21:08" pubdate>
+          2022年8月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          339 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          3 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
 
 </div>
 
+  </header>
 
-        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
-            <i class="iconfont icon-hamburger"></i>
-        </button>
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
     </div>
-    <nav id="menu-nav" class="hidden sm:flex flex-col">
-        
-        
-            <div class="menu-item menu-home" role="menuitem">
-                <a href="/.">
-                    <i class="iconfont icon-home" aria-hidden="true"></i>
-                    <span class="menu-title">首页</span>
-                </a>
-            </div>
-        
-        
-            <div class="menu-item menu-archives" role="menuitem">
-                <a href="/archives">
-                    <i class="iconfont icon-archive" aria-hidden="true"></i>
-                    <span class="menu-title">归档</span>
-                </a>
-            </div>
-        
-        
-            <div class="menu-item menu-categories" role="menuitem">
-                <a href="/categories">
-                    <i class="iconfont icon-folder" aria-hidden="true"></i>
-                    <span class="menu-title">分类</span>
-                </a>
-            </div>
-        
-        
-            <div class="menu-item menu-tags" role="menuitem">
-                <a href="/tags">
-                    <i class="iconfont icon-tag" aria-hidden="true"></i>
-                    <span class="menu-title">标签</span>
-                </a>
-            </div>
-        
-        
-            <div class="menu-item menu-repository" role="menuitem">
-                <a href="/repository">
-                    <i class="iconfont icon-project" aria-hidden="true"></i>
-                    <span class="menu-title">项目</span>
-                </a>
-            </div>
-        
-        
-            <div class="menu-item menu-links" role="menuitem">
-                <a href="/links">
-                    <i class="iconfont icon-friend" aria-hidden="true"></i>
-                    <span class="menu-title">友链</span>
-                </a>
-            </div>
-        
-        
-            <div class="menu-item menu-about" role="menuitem">
-                <a href="/about">
-                    <i class="iconfont icon-cup" aria-hidden="true"></i>
-                    <span class="menu-title">关于</span>
-                </a>
-            </div>
-        
-        
-<div class="social-links flex sm:flex-col lg:hidden mt-5">
-    
-        <span class="social-item text-center">
-            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
-                <i class="iconfont social-icon icon-github"></i>
-                <span class="menu-title hidden lg:inline">menu.github</span>
-            </a>
-        </span>
-    
-        <span class="social-item text-center">
-            <a href="/atom.xml">
-                <i class="iconfont social-icon icon-rss"></i>
-                <span class="menu-title hidden lg:inline">menu.rss</span>
-            </a>
-        </span>
-    
-</div>
 
-
-    </nav>
-</header>
-
-        <section class="main-section">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">stm32cube+platformio环境开发</h1>
             
-    <main class="flex-1 px-4 py-14 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
-    
-
-    <article class="content article article-archives article-type-list" itemscope="">
-        <header class="article-header">
             
-    
-        <h1 class="article-title text-lg" itemprop="name">
-            stm32cube+platformio环境开发
-        </h1>
-    
-
-
-
-            <p class="article-meta mb-3 text-xs">
-                <span class="article-date">
-    <i class="iconfont icon-calendar-check"></i>
-	<a href="/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/" class="article-date">
-	  <time datetime="2022-08-08T13:08:51.000Z" itemprop="datePublished">8月 8</time>
-	</a>
-</span>
-
+              <div class="markdown-body">
                 
-    <span class="article-category">
-    <i class="iconfont icon-folder"></i>
-    <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a> , <a class="article-category-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/stm32/">stm32</a>
-  </span>
-
-
-                
-    <span class="article-tags">
-    <i class="iconfont icon-tag"></i>
-    <a class="article-tag-none-link" href="/tags/hal%E5%BA%93/" rel="tag">hal库</a>, <a class="article-tag-none-link" href="/tags/platformio/" rel="tag">platformio</a>, <a class="article-tag-none-link" href="/tags/stm32/" rel="tag">stm32</a>, <a class="article-tag-none-link" href="/tags/vscode/" rel="tag">vscode</a>
-  </span>
-
-
-                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
-                    <a href="/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/#comments" class="article-comment-link">
-                        评论
-                    </a>
-                </span>
-                
-    
-        <span class="post-wordcount" itemprop="wordCount">字数统计: 350(字)</span>
-    
-    
-        <span class="post-readcount" itemprop="timeRequired">阅读时长: 1(分)</span>
-    
-
-
-            </p>
-        </header>
-        <div class="marked-body article-body">
-            <h1 id="stm32cube-platformio环境开发"><a href="#stm32cube-platformio环境开发" class="headerlink" title="stm32cube+platformio环境开发"></a>stm32cube+platformio环境开发</h1><h2 id="一-所需软件"><a href="#一-所需软件" class="headerlink" title="一. 所需软件"></a>一. 所需软件</h2><ol>
+                <h1 id="stm32cube-platformio环境开发"><a href="#stm32cube-platformio环境开发" class="headerlink" title="stm32cube+platformio环境开发"></a>stm32cube+platformio环境开发</h1><h2 id="一-所需软件"><a href="#一-所需软件" class="headerlink" title="一. 所需软件"></a>一. 所需软件</h2><ol>
 <li>VScode<br> 下载过程略<br> <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vscode官网</a><br> 建议国内下载</li>
 <li>stm32cubemx<br> 下载过程略<br> <a target="_blank" rel="noopener" href="https://www.st.com/">st官网</a><br> 建议国内下载</li>
-<li>platformio<br> 下载好vscode后，直接在左边插件搜索，选择下载量最多的即可，由于是从github下载故下载速度很慢(dddd)<br> 下载好后点击左侧图标即可进入界面<br> <img src="/../images/8.8/1659965131203.jpg"></li>
+<li>platformio<br> 下载好vscode后，直接在左边插件搜索，选择下载量最多的即可，由于是从github下载故下载速度很慢(dddd)<br> 下载好后点击左侧图标即可进入界面<br> <img src="/../images/8.8/1659965131203.jpg" srcset="/img/loading.gif" lazyload></li>
 </ol>
 <hr>
 <h2 id="二-stm32cubemx创建工程"><a href="#二-stm32cubemx创建工程" class="headerlink" title="二. stm32cubemx创建工程"></a>二. stm32cubemx创建工程</h2><ol>
 <li>打开stm32cubemx，点击file-&gt;new project,期间可能会更新一些芯片包，如不需要可直接点击cancel,然后选择自己的芯片</li>
 <li>进行一些基本的配置并创建项目  <ul>
-<li>打开系统总线<br> <img src="/../images/8.8/1659965550539.jpg"></li>
-<li>启用外部晶振<br> <img src="/../images/8.8/1659965903414.jpg"></li>
-<li>进行自己需要的一些配置，如我此处初始化PA1为output<br> <img src="/../images/8.8/1659965742730.jpg"></li>
-<li>配置时钟树，直接输入72即可<br> <img src="/../images/8.8/1659965975312.jpg"></li>
-<li>配置项目基本信息<br> <img src="/../images/8.8/1659966099120.jpg"><br> <img src="/../images/8.8/1659966229888.jpg"></li>
+<li>打开系统总线<br> <img src="/../images/8.8/1659965550539.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>启用外部晶振<br> <img src="/../images/8.8/1659965903414.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>进行自己需要的一些配置，如我此处初始化PA1为output<br> <img src="/../images/8.8/1659965742730.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>配置时钟树，直接输入72即可<br> <img src="/../images/8.8/1659965975312.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>配置项目基本信息<br> <img src="/../images/8.8/1659966099120.jpg" srcset="/img/loading.gif" lazyload><br> <img src="/../images/8.8/1659966229888.jpg" srcset="/img/loading.gif" lazyload></li>
 <li>创建项目</li>
 </ul>
 </li>
@@ -269,84 +314,392 @@
 <li>点击new project</li>
 <li>选择对应的芯片</li>
 <li>framworks选择cubemax</li>
-<li><strong>注意：项目名称和路径都要和cubemx创建的对应</strong><br> <img src="/../images/8.8/1659966474429.jpg"></li>
+<li><strong>注意：项目名称和路径都要和cubemx创建的对应</strong><br> <img src="/../images/8.8/1659966474429.jpg" srcset="/img/loading.gif" lazyload></li>
 <li>开始创建<br> 由于是第一次创建项目，platformio需要从github上下载对应的资源，因此速度非常慢，忍受不了的可以想办法加速（dddd）</li>
 </ul>
 </li>
-<li>创建成功后，修改platformio.ini配置文件,可以根据自己具体情况进行修改<br> <img src="/../images/8.8/1659966892806.jpg"></li>
-<li>编译并下载<br> <img src="/../images/8.8/1659967055693.jpg"><br> 其中勾号是编译，箭头是下载</li>
+<li>创建成功后，修改platformio.ini配置文件,可以根据自己具体情况进行修改<br> <img src="/../images/8.8/1659966892806.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>编译并下载<br> <img src="/../images/8.8/1659967055693.jpg" srcset="/img/loading.gif" lazyload><br> 其中勾号是编译，箭头是下载</li>
 </ol>
 
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/" class="category-chain-item">单片机</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/stm32/" class="category-chain-item">stm32</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/stm32/" class="print-no-link">#stm32</a>
+      
+        <a href="/tags/hal%E5%BA%93/" class="print-no-link">#hal库</a>
+      
+        <a href="/tags/platformio/" class="print-no-link">#platformio</a>
+      
+        <a href="/tags/vscode/" class="print-no-link">#vscode</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>stm32cube+platformio环境开发</div>
+      <div>https://shuaibisheng666.github.io/2022/08/08/stm32cube+platformio环境开发/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jiasheng Ma</div>
         </div>
-        
-<blockquote class="copyright">
-    <p><strong>本文链接 : </strong><a class="permalink" href="https://shuaibisheng666.github.io/2022/08/08/stm32cube+platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91/">https://shuaibisheng666.github.io/2022/08/08/stm32cube+platformio环境开发/</a></p>
-    <p><strong>This article is available under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a> License</strong></p>
-</blockquote>
-
-
-    </article>
-    
-    <section id="comments">
-        
-    </section>
-
-
-    
-
-</main>
-
-
-<aside style="" id="sidebar" class="aside aside-fixture">
-    <div class="toc-sidebar">
-        <nav id="toc" class="article-toc">
-            <h3 class="toc-title">文章目录</h3>
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#stm32cube-platformio%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91"><span class="toc-number">1.</span> <span class="toc-text">stm32cube+platformio环境开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E6%89%80%E9%9C%80%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">一. 所需软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-stm32cubemx%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">二. stm32cubemx创建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-platformio%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">三. platformio创建工程</span></a></li></ol></li></ol>
-        </nav>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
     </div>
-</aside>
+    <div class="license-icon iconfont"></div>
+  </div>
 
 
 
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/10/8266nodemcu-tft%E6%98%BE%E7%A4%BA%E5%B1%8F%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87/" title="8266nodemcu+tft显示屏显示图片">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">8266nodemcu+tft显示屏显示图片</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/07/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" title="个人博客搭建教程">
+                        <span class="hidden-mobile">个人博客搭建教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-
-        </section>
-        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
-    
-    <div class="footer-social-links">
-        
-            <a target="_blank" rel="noopener" href="https://github.com/shuaibisheng666">
-                <i class="iconfont icon-github"></i>
-            </a>
-        
-            <a href="/atom.xml">
-                <i class="iconfont icon-rss"></i>
-            </a>
-        
+            
+          </article>
+        </div>
+      </div>
     </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
+
     
-</footer>
-
-        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
-        <div id="search-view-container" class="hidden shadow-xl"></div>
-        
-<script src="/js/dom-event.min.js"></script>
-
-
-
-<script src="/js/local-search.min.js"></script>
-
-
-
-    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
     
-<script src="/js/light-gallery.min.js"></script>
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
 
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
 
-    </body>
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
 </html>
