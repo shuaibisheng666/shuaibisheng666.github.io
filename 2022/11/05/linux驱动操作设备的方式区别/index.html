@@ -19,31 +19,23 @@
   <meta name="author" content="Ma JiaSheng">
   <meta name="keywords" content="blog">
   
-    <meta name="description" content="加法器原理一. 简介 加法器，顾名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为在计算机中减法，乘法，除法都可以转化为加法。 加法器分为半加器和全加器，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。  二. 实现原理1.半加器的实现 在计算机中，一切数据都是以二进制形式存储的，那么我们先考虑一下一位二进">
+    <meta name="description" content="我们在linux开发板上操作硬件时，有时候可以通过 操作 &#x2F;sys&#x2F;class&#x2F;***，有时候也可以通过操作&#x2F;dev&#x2F;***来实现控制设备 比如操作led时，有时候可以通过： echo 1 &gt; &#x2F;sys&#x2F;class&#x2F;led&#x2F;brightness 有时候可以通过 echo 1 &gt; &#x2F;dev">
 <meta property="og:type" content="article">
-<meta property="og:title" content="加法器原理">
-<meta property="og:url" content="https://shuaibisheng666.github.io/2022/08/22/%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="从linux驱动操作设备的方式区别">
+<meta property="og:url" content="https://shuaibisheng666.github.io/2022/11/05/linux%E9%A9%B1%E5%8A%A8%E6%93%8D%E4%BD%9C%E8%AE%BE%E5%A4%87%E7%9A%84%E6%96%B9%E5%BC%8F%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="sheng&#39;s blog">
-<meta property="og:description" content="加法器原理一. 简介 加法器，顾名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为在计算机中减法，乘法，除法都可以转化为加法。 加法器分为半加器和全加器，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。  二. 实现原理1.半加器的实现 在计算机中，一切数据都是以二进制形式存储的，那么我们先考虑一下一位二进">
+<meta property="og:description" content="我们在linux开发板上操作硬件时，有时候可以通过 操作 &#x2F;sys&#x2F;class&#x2F;***，有时候也可以通过操作&#x2F;dev&#x2F;***来实现控制设备 比如操作led时，有时候可以通过： echo 1 &gt; &#x2F;sys&#x2F;class&#x2F;led&#x2F;brightness 有时候可以通过 echo 1 &gt; &#x2F;dev">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1b66064f4a2243fda802928fc073aed9.png">
-<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1661171386698.jpg">
-<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1661173291532.jpg">
-<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1661173442495.jpg">
-<meta property="og:image" content="https://shuaibisheng666.github.io/images/8.22/1661175155643.jpg">
-<meta property="article:published_time" content="2022-08-22T13:42:37.000Z">
-<meta property="article:modified_time" content="2023-03-31T11:50:07.583Z">
+<meta property="article:published_time" content="2022-11-05T15:38:54.000Z">
+<meta property="article:modified_time" content="2025-07-29T07:30:33.556Z">
 <meta property="article:author" content="Ma JiaSheng">
-<meta property="article:tag" content="数字逻辑">
-<meta property="article:tag" content="微机原理">
-<meta property="article:tag" content="CPU">
-<meta property="article:tag" content="加法器">
+<meta property="article:tag" content="linux驱动">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://shuaibisheng666.github.io/images/8.22/1b66064f4a2243fda802928fc073aed9.png">
   
   
   
-  <title>加法器原理 - sheng&#39;s blog</title>
+  <title>从linux驱动操作设备的方式区别 - sheng&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -222,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="加法器原理"></span>
+            <span id="subtitle" data-typed-text="从linux驱动操作设备的方式区别"></span>
           
         </div>
 
@@ -233,8 +225,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-22 21:42" pubdate>
-          2022年8月22日 晚上
+        <time datetime="2022-11-05 23:38" pubdate>
+          2022年11月5日 晚上
         </time>
       </span>
     
@@ -245,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          997 字
+          822 字
         
       </span>
     
@@ -256,7 +248,7 @@
         
         
         
-          9 分钟
+          7 分钟
         
       </span>
     
@@ -302,135 +294,79 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">加法器原理</h1>
+            <h1 id="seo-header">从linux驱动操作设备的方式区别</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="加法器原理"><a href="#加法器原理" class="headerlink" title="加法器原理"></a>加法器原理</h1><h2 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h2><ol>
-<li>加法器，顾名思意就是实现加法运算的一个装置，在计算机中，加法器是最基本的运算装置，因为<strong>在计算机中减法，乘法，除法都可以转化为加法</strong>。</li>
-<li>加法器分为<strong>半加器</strong>和<strong>全加器</strong>，半加器指的是只包含两个加数作为输入，一个和数和一个进位作为输出，而全加器是在半加器的基础上加上了一个进位作为输入。</li>
-</ol>
-<h2 id="二-实现原理"><a href="#二-实现原理" class="headerlink" title="二. 实现原理"></a>二. 实现原理</h2><h3 id="1-半加器的实现"><a href="#1-半加器的实现" class="headerlink" title="1.半加器的实现"></a>1.半加器的实现</h3><ul>
-<li><p>在计算机中，一切数据都是以二进制形式存储的，那么我们先考虑一下<strong>一位二进制数</strong>的加法运算。<br>  观察以下式子：<br>  0 + 0 &#x3D; 0 0<br>  0 + 1 &#x3D; 0 1<br>  1 + 0 &#x3D; 0 1<br>  1 + 1 &#x3D; 1 0<br>  可以看到对于一位二进制数的加法，有四个部分，一个加数，一个被加数，一个和数，一个进位数：<br>  比如:<br>  1（被加数） + 1（加数）&#x3D; 1（进位数）0（和数）  </p>
-</li>
-<li><p>以下我们把被加数称为A，加数称为B，和数称为S,进位数称为C,将以上四条式子列为真值表</p>
-<table>
-<thead>
-<tr>
-<th>A</th>
-<th>B</th>
-<th>C</th>
-<th>S</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody></table>
-<p>  可以看到：<br>  只有A和B同时为1时，C才为1，这跟<strong>与</strong>运算是相同的，即：<br>  C &#x3D; A + B<br>  当A和B一个为1一个为0时，S为1，也就是说A和B不一样时，S为1，这跟<strong>异或运算</strong>是一样的，即：<br>  S &#x3D; A ⊕ B<br>  用以下逻辑符号表示为：<br>  <img src="/../images/8.22/1b66064f4a2243fda802928fc073aed9.png" srcset="/img/loading.gif" lazyload>  </p>
-</li>
-<li><p>实际上我们并不关心内部装置是怎么样的，我们只要知道输入什么，会得到怎样的输出即可，于是我们对加法器进行抽象，变成以下简单的样子：<br>  <img src="/../images/8.22/1661171386698.jpg" srcset="/img/loading.gif" lazyload><br>  这样子，我们就得到了一个只能计算一位二进制数的加法器</p>
+                <p>我们在linux开发板上操作硬件时，有时候可以通过</p>
+<p>操作 &#x2F;sys&#x2F;class&#x2F;***，有时候也可以通过操作&#x2F;dev&#x2F;***来实现控制设备</p>
+<p>比如操作led时，有时候可以通过：</p>
+<p>echo 1 &gt; &#x2F;sys&#x2F;class&#x2F;led&#x2F;brightness</p>
+<p>有时候可以通过</p>
+<p>echo 1 &gt; &#x2F;dev&#x2F;led 来控制led的亮灭</p>
+<br/>
+
+<p><strong>但是这之间有什么区别？</strong></p>
+<h2 id="1-文件类型不同"><a href="#1-文件类型不同" class="headerlink" title="1. 文件类型不同"></a>1. 文件类型不同</h2><p>（1）&#x2F;sys&#x2F;class&#x2F;*** 文件本质是一个伪文件，是一个符号链接,链接到&#x2F;sys&#x2F;device&#x2F;*** 下某个设备<br>如：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle">root@localhost:~# ls -l <span class="hljs-regexp">/sys/</span><span class="hljs-keyword">class</span><span class="hljs-regexp">/leds/</span>rgb-led-r<br>lrwxrwxrwx <span class="hljs-number">1</span> root root <span class="hljs-number">0</span> Feb <span class="hljs-number">28</span> <span class="hljs-number">11</span>:<span class="hljs-number">36</span> <span class="hljs-regexp">/sys/</span><span class="hljs-keyword">class</span><span class="hljs-regexp">/leds/</span>rgb-led-r -&gt; ..<span class="hljs-regexp">/../</span>devices<span class="hljs-regexp">/platform/</span>leds<span class="hljs-regexp">/leds/</span>rgb-led-r<br><br></code></pre></td></tr></table></figure>
+
+<p>（2）&#x2F;sys&#x2F;device&#x2F; 下的设备是伪文件，是内核暴露出来方便调试，查看一些信息的  </p>
+<p>（3） &#x2F;dev&#x2F;下的文件是POSIX 标准文件</p>
+<p>  &#x2F;dev&#x2F;下的文件是一个设备节点，是有主次设备号的</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">root</span>@localhost:~# ls -l  /dev/tty0<br><span class="hljs-attribute">crw</span>--w---- <span class="hljs-number">1</span> root tty <span class="hljs-number">4</span>, <span class="hljs-number">0</span> Feb <span class="hljs-number">28</span> <span class="hljs-number">11</span>:<span class="hljs-number">36</span> /dev/tty0<br><br><span class="hljs-attribute">c</span>代表是字符设备，<span class="hljs-number">4</span>代表主设备号， <span class="hljs-number">0</span>代表子设备号<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-注册方式不同"><a href="#2-注册方式不同" class="headerlink" title="2. 注册方式不同"></a>2. 注册方式不同</h2><h3 id="（1）-x2F-sys-x2F-class-x2F-的注册"><a href="#（1）-x2F-sys-x2F-class-x2F-的注册" class="headerlink" title="（1）&#x2F;sys&#x2F;class&#x2F;*** 的注册"></a>（1）&#x2F;sys&#x2F;class&#x2F;*** 的注册</h3><ul>
+<li><strong>&#x2F;sys&#x2F;class&#x2F;</strong>* 是通过 **<code>class_create</code>**函数在驱动内部注册的。<ul>
+<li>**<code>class_create</code>**：创建一个设备类（如 <code>leds</code>、<code>gpio</code> 等）。</li>
+<li>函数最终会在 <code>/sys/class/</code> 下生成对应的目录和文件。</li>
+</ul>
 </li>
 </ul>
-<h3 id="2-全加器的实现"><a href="#2-全加器的实现" class="headerlink" title="2.全加器的实现"></a>2.全加器的实现</h3><ul>
-<li>事实上，我们上面得到的加法器只有四个口，一个加数，一个被加数，一个和数，一个进位数，这样的加法器是不完善的，我们称之为半加器。</li>
-<li>假设我们现在想实现一个加法器能够接收<strong>来自低位的进位</strong>，那么我们就需要第三个输入端，这样的加法器称为全加器。以下来自低位的进位称为C’,列出真值表：<table>
-<thead>
-<tr>
-<th>A</th>
-<th>B</th>
-<th>C’</th>
-<th>C</th>
-<th>S</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-</tbody></table>
-  这个真值表分析起来有点复杂，这里直接说结论，可以直接用两个半加器和一个或元件达成这个逻辑，即：<br>  <img src="/../images/8.22/1661173291532.jpg" srcset="/img/loading.gif" lazyload></li>
-<li>同样的，我们并不关心内部装置是怎么样的，我们只要知道输入什么，会得到怎样的输出即可，于是我们对这个全加法器进行抽象，变成以下简单的样子：<br>  <img src="/../images/8.22/1661173442495.jpg" srcset="/img/loading.gif" lazyload></li>
+<p><strong>示例代码</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">struct class *cls = class_create(THIS_MODULE, &quot;leds&quot;);<br></code></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">/sys/class/leds/red<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="（2）-x2F-sys-x2F-devices-x2F-的注册"><a href="#（2）-x2F-sys-x2F-devices-x2F-的注册" class="headerlink" title="（2）&#x2F;sys&#x2F;devices&#x2F;*** 的注册"></a>（2）&#x2F;sys&#x2F;devices&#x2F;*** 的注册</h3><ul>
+<li><strong>&#x2F;sys&#x2F;devices&#x2F;</strong>* 是通过 <strong><code>platform_device_register</code></strong> 或 <strong><code>platform_device_register_simple</code></strong> 函数在驱动内部注册的。<ul>
+<li>这些函数会将设备注册到 <strong>platform 总线</strong>，并在 <code>/sys/devices/</code> 下生成对应的目录和文件。</li>
+<li>这些目录和文件记录了设备的详细信息，如 <strong><code>driver</code><strong>、</strong><code>modalias</code><strong>、</strong><code>of_node</code></strong> 等。</li>
 </ul>
-<h3 id="3-多位二进制数加法的实现"><a href="#3-多位二进制数加法的实现" class="headerlink" title="3. 多位二进制数加法的实现"></a>3. 多位二进制数加法的实现</h3><ul>
-<li>上面我们虽然实现了半加器和全加器，但无论是半加器还是全加器，二者都只能计算一位二进制的加法。但是全加器可以接收来自低位的进位，因此我们可以将多个全加器串联起来，实现多位二进制数的加法。</li>
-<li>如下我们把八个全加器串联起来，就能实现八位二进制数的加法运算了：<br><img src="/../images/8.22/1661175155643.jpg" srcset="/img/loading.gif" lazyload><br>注意最低为的进位输入端我们给它置零，因为其不会有接收来自低位进位的情况。  </li>
-<li>通过以上的分析，我们实现了一个八位二进制数的加法器，同样的如果我们将16个全加器串联起来，就可以计算十六位二进制数了。</li>
-<li>虽然我们串联8个全加器可以计算八位二进制数的加法，但同样的计算时间也会变为8倍，但这对于人来说还是很快的，只要输入立马就能得到输出。不过也有其他的优化方法可以减少运算时间，此处不做讨论。</li>
+</li>
+</ul>
+<p><strong>示例代码</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">struct platform_device *pdev = platform_device_register_simple(&quot;leds&quot;, -1, NULL, 0);<br></code></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">/sys/devices/platform/leds<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="（3）-x2F-dev-x2F-的注册"><a href="#（3）-x2F-dev-x2F-的注册" class="headerlink" title="（3） &#x2F;dev&#x2F;* 的注册"></a>（3） <strong>&#x2F;dev&#x2F;</strong>* 的注册</h3><ul>
+<li><strong>&#x2F;dev&#x2F;</strong>* 是通过 <strong><code>device_create</code></strong> 或 <strong><code>cdev_add</code></strong> 函数在驱动内部注册的。<ul>
+<li>**<code>device_create</code>**：创建一个字符设备节点。</li>
+<li>**<code>cdev_add</code>**：注册字符设备并分配主次设备号。</li>
+<li>这些函数最终会在 <code>/dev/</code> 下生成对应的设备节点文件。</li>
+</ul>
+</li>
+<li>也可以通过 <strong><code>mknod</code></strong> 命令在用户空间手动创建设备节点。</li>
+</ul>
+<p><strong>示例代码</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c_cpp">alloc_chrdev_region(&amp;devid, 0, 1, &quot;led&quot;);<br>cdev_init(&amp;cdev, &amp;fops);<br>cdev_add(&amp;cdev, devid, 1);<br>cls = class_create(THIS_MODULE, &quot;led&quot;);<br>device_create(cls, NULL, devid, NULL, &quot;led&quot;);<br></code></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">/dev/led<br></code></pre></td></tr></table></figure>
+
+<p><strong>用户空间手动创建</strong>：</p>
+<h3 id="3-实现方式不同"><a href="#3-实现方式不同" class="headerlink" title="3. 实现方式不同"></a>3. 实现方式不同</h3><p>（1）假如你在驱动下面通过<strong>device_create</strong>注册设备节点的话，一般来说你需要实现file_operations。设备节点是通过标准文件接口来实现与用户空间的交互。</p>
+<p>（2）而sysfs 文件系统提供控制接口（如 led的brightness、trigger 等），这些接口不需要 file_operations。<br>sysfs 文件系统直接暴露设备的属性和状态，用户空间程序可以通过 echo、cat 等命令 操作这些文件。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><ul>
+<li>&#x2F;sys&#x2F;class&#x2F;* 和 &#x2F;sys&#x2F;devices&#x2F;* 是内核暴露的 sysfs 文件系统，用于调试和配置设备属性。   </li>
+<li>&#x2F;sys&#x2F;class&#x2F;* 是 &#x2F;sys&#x2F;devices&#x2F;* 的快捷方式，按功能分类组织设备。  </li>
+<li>&#x2F;dev&#x2F;* 是 POSIX 标准设备节点，用于 字节流&#x2F;块流 I&#x2F;O。</li>
+<li>&#x2F;dev&#x2F;* 是由驱动或 udev 创建的，用于 POSIX 标准文件 I&#x2F;O。</li>
 </ul>
 
                 
@@ -450,7 +386,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/" class="category-chain-item">数字逻辑</a>
+  <a href="/categories/linux%E9%A9%B1%E5%8A%A8/" class="category-chain-item">linux驱动</a>
   
   
 
@@ -465,13 +401,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/" class="print-no-link">#数字逻辑</a>
+        <a href="/tags/linux%E9%A9%B1%E5%8A%A8/" class="print-no-link">#linux驱动</a>
       
-        <a href="/tags/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86/" class="print-no-link">#微机原理</a>
-      
-        <a href="/tags/CPU/" class="print-no-link">#CPU</a>
-      
-        <a href="/tags/%E5%8A%A0%E6%B3%95%E5%99%A8/" class="print-no-link">#加法器</a>
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
       
     </div>
   
@@ -483,8 +415,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>加法器原理</div>
-      <div>https://shuaibisheng666.github.io/2022/08/22/加法器原理/</div>
+      <div>从linux驱动操作设备的方式区别</div>
+      <div>https://shuaibisheng666.github.io/2022/11/05/linux驱动操作设备的方式区别/</div>
     </div>
     <div class="license-meta">
       
@@ -496,7 +428,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月22日</div>
+          <div>2022年11月5日</div>
         </div>
       
       
@@ -528,9 +460,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/05/linux%E9%A9%B1%E5%8A%A8%E6%93%8D%E4%BD%9C%E8%AE%BE%E5%A4%87%E7%9A%84%E6%96%B9%E5%BC%8F%E5%8C%BA%E5%88%AB/" title="从linux驱动操作设备的方式区别">
+                      <a href="/2022/11/05/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%8F%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" title="从零开发操作系统（一）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从linux驱动操作设备的方式区别</span>
+                        <span class="hidden-mobile">从零开发操作系统（一）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -538,8 +470,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/10/8266nodemcu-tft%E6%98%BE%E7%A4%BA%E5%B1%8F%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87/" title="8266nodemcu+tft显示屏显示图片">
-                        <span class="hidden-mobile">8266nodemcu+tft显示屏显示图片</span>
+                      <a href="/2022/08/22/%E5%8A%A0%E6%B3%95%E5%99%A8%E5%8E%9F%E7%90%86/" title="加法器原理">
+                        <span class="hidden-mobile">加法器原理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
